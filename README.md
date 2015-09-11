@@ -19,18 +19,17 @@ PassportScanner
 ## What is this
 With PassportScanner you can use your camera to scan the [MRZ code](http://en.wikipedia.org/wiki/Machine-readable_passport) of a passport. It will extract all data like firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
 
-PassportScanner is trying to optimize OCR results by first performing some graphic filters. The exposure filter is dynamic. This means that if the image is dark it tries to light it up and visa versa. As you can see in the demo animation below you will be able to scan a passport about once every 3 seconds.
+PassportScanner is trying to optimize OCR results by first performing some graphic filters. The exposure filter is dynamic. This means that if the image is dark it tries to light it up and visa versa. As you can see in the demo animation below you will be able to scan a passport about once every 3 seconds. 
 
-
+###### wait a moment until the .gif below is downloaded...
 ![animated](https://github.com/evermeer/PassportScanner/blob/master/ezgif.gif?raw=true)
-
 
 
 ## 
 ## Comming soon...
 
 ## My other libraries:
-In the mean time have a look at my other open source libraries:
+In the mean time have a look at my other open source iOS libraries:
 
 - [EVReflection](https://github.com/evermeer/EVReflection) - Swift library with reflection functions with support for NSCoding, Printable, Hashable, Equatable and JSON 
 - [EVCloudKitDao](https://github.com/evermeer/EVCloudKitDao) - Simplified access to Apple's CloudKit
@@ -39,6 +38,7 @@ In the mean time have a look at my other open source libraries:
 - [AlamofireJsonToObject](https://github.com/evermeer/AlamofireJsonToObjects) - An Alamofire extension which converts JSON response data into swift objects using EVReflection
 - [AlamofireOauth2](https://github.com/evermeer/AlamofireOauth2) - A swift implementation of OAuth2 using Alamofire
 - [EVWordPressAPI](https://github.com/evermeer/EVWordPressAPI) - Swift Implementation of the WordPress (Jetpack) API using AlamofireOauth2, AlomofireJsonToObjects and EVReflection (work in progress)
+- [PassportScanner](https://github.com/evermeer/PassportScanner) - Scan the MRZ code of a passport and extract the firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
 
 
 
