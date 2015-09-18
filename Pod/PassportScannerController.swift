@@ -188,6 +188,17 @@ public class PassportScannerController: UIViewController {
                 // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
                 self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist");
                 self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
+
+//Testing OCR optimisations
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_freq_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_unambig_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_punc_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_number_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_fixed_length_dawgs")
+//                self.tesseract.setVariableValue("FALSE", forKey: "load_bigram_dawg")
+//                self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
+                
                 self.tesseract.image = image
                 print("- Start recognize")
                 self.tesseract.recognize()

@@ -1,6 +1,10 @@
 PassportScanner
 =============
 
+<!---
+ [![Circle CI](https://img.shields.io/circleci/project/evermeer/PassportScanner.svg?style=flat)](https://circleci.com/gh/evermeer/PassportScanner)
+ -->
+[![Build Status](https://travis-ci.org/evermeer/PassportScanner.svg?style=flat)](https://travis-ci.org/evermeer/PassportScanner)
 [![Issues](https://img.shields.io/github/issues-raw/evermeer/PassportScanner.svg?style=flat)](https://github.com/evermeer/PassportScanner/issues)
 [![Stars](https://img.shields.io/github/stars/evermeer/PassportScanner.svg?style=flat)](https://github.com/evermeer/PassportScanner/stargazers)
 [![Version](https://img.shields.io/cocoapods/v/PassportScanner.svg?style=flat)](http://cocoadocs.org/docsets/PassportScanner)
