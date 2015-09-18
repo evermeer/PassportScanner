@@ -6,8 +6,9 @@
 //
 
 import Foundation
-
 import UIKit
+import TesseractOCR
+import GPUImage
 
 public class PassportScannerController: UIViewController {
 

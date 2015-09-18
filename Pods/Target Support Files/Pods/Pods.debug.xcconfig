@@ -1,8 +1,8 @@
 CLANG_CXX_LIBRARY = compiler-default
 CLANG_MODULES_AUTOLINK = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GPUImage" "${PODS_ROOT}/Headers/Public/TesseractOCRiOS" "${PODS_ROOT}/Headers/Public/TesseractOCRiOS/TesseractOCR" "${PODS_ROOT}/Headers/Public/UIImage-Resize"
-LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/TesseractOCRiOS/TesseractOCR/lib" "$(PODS_ROOT)/TesseractOCRiOS/TesseractOCR/lib"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/GPUImage" -isystem "${PODS_ROOT}/Headers/Public/TesseractOCRiOS" -isystem "${PODS_ROOT}/Headers/Public/TesseractOCRiOS/TesseractOCR" -isystem "${PODS_ROOT}/Headers/Public/UIImage-Resize"
-OTHER_LDFLAGS = $(inherited) -ObjC -weak_library /usr/lib/libstdc++.6.0.9.dylib -l"GPUImage" -l"TesseractOCRiOS" -l"UIImage-Resize" -l"lept" -l"stdc++" -l"tesseract_all" -framework "AVFoundation" -framework "CoreMedia" -framework "Foundation" -framework "OpenGLES" -framework "QuartzCore" -framework "UIKit"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$CONFIGURATION_BUILD_DIR/GPUImage.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/TesseractOCR.framework/Headers" -iquote "$CONFIGURATION_BUILD_DIR/UIImage_Resize.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -weak_library /usr/lib/libstdc++.6.0.9.dylib -l"stdc++" -framework "GPUImage" -framework "TesseractOCR" -framework "UIImage_Resize"
+PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods
 PODS_ROOT = ${SRCROOT}/Pods
