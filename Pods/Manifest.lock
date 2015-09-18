@@ -1,0 +1,16 @@
+PODS:
+  - GPUImage (0.1.7)
+  - TesseractOCRiOS (4.0.0)
+  - UIImage-Resize (1.0.1)
+
+DEPENDENCIES:
+  - GPUImage
+  - TesseractOCRiOS
+  - UIImage-Resize
+
+SPEC CHECKSUMS:
+  GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
+  UIImage-Resize: fa776860f10e6900bbaf53a73e494bdceaaccc77
+
+COCOAPODS: 0.38.2

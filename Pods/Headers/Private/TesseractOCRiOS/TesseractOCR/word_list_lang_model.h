@@ -1,0 +1,1 @@
+../../../../TesseractOCRiOS/TesseractOCR/include/tesseract/word_list_lang_model.h

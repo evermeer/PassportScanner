@@ -1,0 +1,1 @@
+../../../../TesseractOCRiOS/TesseractOCR/G8TesseractDelegate.h

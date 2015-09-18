@@ -1,0 +1,1 @@
+../../../../TesseractOCRiOS/TesseractOCR/include/tesseract/baseapi.h

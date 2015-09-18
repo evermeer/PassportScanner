@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="PassportScanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GvR-8Q-iLE">
+                                <rect key="frame" x="216" y="52" width="169" height="65"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSq-F7-poS" userLabel="SCAN">
+                                        <rect key="frame" x="4" y="7" width="161" height="51"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="161" id="Dt0-HU-cho"/>
+                                            <constraint firstAttribute="height" constant="51" id="tnG-bM-Rf8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="45"/>
+                                        <state key="normal" title=" SCAN ">
+                                            <color key="titleColor" red="0.4941176471" green="0.76078431369999999" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="StartScan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OLI-qW-o96"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.4941176471" green="0.76078431369999999" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="3TM-Wb-zmu"/>
+                                    <constraint firstItem="BSq-F7-poS" firstAttribute="centerY" secondItem="GvR-8Q-iLE" secondAttribute="centerY" id="kRI-nN-qJ0"/>
+                                    <constraint firstItem="BSq-F7-poS" firstAttribute="centerX" secondItem="GvR-8Q-iLE" secondAttribute="centerX" id="qKV-dK-igt"/>
+                                    <constraint firstAttribute="width" constant="169" id="sq0-x5-mFz"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSc-Kv-jT5">
+                                <rect key="frame" x="36" y="130" width="528" height="454"/>
+                                <string key="text">IMPORTANT NOTICE: SCANNING IDENTITY DOCUMENTS IS IN MOST CASES RESTRICTED BY LAW. OBSERVE THE APPLICABLE LAWS USING THIS TOOL. THE COPYRIGHT HOLDER IS NOT IN ANY WAY LIABLE FOR UNLAWFUL USAGE OF THIS TOOL.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GvR-8Q-iLE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xlb-7h-9XO"/>
+                            <constraint firstItem="GvR-8Q-iLE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="32" id="fMo-xS-3Qd"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="gzR-a9-FU2"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="130" id="mA9-oA-FcV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cSc-Kv-jT5" secondAttribute="trailing" constant="16" id="sgm-vp-Nj3"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="cSc-Kv-jT5" secondAttribute="bottom" constant="16" id="yv9-0v-3qN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mrzLabel" destination="cSc-Kv-jT5" id="lOT-EK-Eer"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-508" y="-1127"/>
+        </scene>
+        <!--My Scan View Controller-->
+        <scene sceneID="LPJ-C2-hG9">
+            <objects>
+                <viewController storyboardIdentifier="PassportScanner" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qHB-Os-1wr" customClass="MyScanViewController" customModule="PassportScanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xPt-VS-8OA"/>
+                        <viewControllerLayoutGuide type="bottom" id="LEH-tj-rlo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bcf-pp-v92" userLabel="View">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="buY-rE-70k" userLabel="filterView" customClass="GPUImageView">
+                                <rect key="frame" x="20" y="0.0" width="560" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="overlay.png" translatesAutoresizingMaskIntoConstraints="NO" id="NVV-Mh-nJH">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="600"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lZ-yS-UhP">
+                                        <rect key="frame" x="25" y="510" width="32" height="65"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="44"/>
+                                        <state key="normal" title="X">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="StopScan:" destination="qHB-Os-1wr" eventType="touchUpInside" id="s4A-4K-n9F"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="NVV-Mh-nJH" firstAttribute="leading" secondItem="buY-rE-70k" secondAttribute="leading" id="1gj-hh-mMb"/>
+                                    <constraint firstAttribute="bottom" secondItem="5lZ-yS-UhP" secondAttribute="bottom" constant="25" id="5tP-zO-eQl"/>
+                                    <constraint firstItem="NVV-Mh-nJH" firstAttribute="top" secondItem="buY-rE-70k" secondAttribute="top" id="HmM-XO-Pco"/>
+                                    <constraint firstItem="5lZ-yS-UhP" firstAttribute="leading" secondItem="buY-rE-70k" secondAttribute="leading" constant="25" id="ShD-zc-xd5"/>
+                                    <constraint firstAttribute="bottom" secondItem="NVV-Mh-nJH" secondAttribute="bottom" id="ieu-ge-Oyx"/>
+                                    <constraint firstAttribute="trailing" secondItem="NVV-Mh-nJH" secondAttribute="trailing" id="w7x-kO-yVs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="buY-rE-70k" firstAttribute="leading" secondItem="bcf-pp-v92" secondAttribute="leadingMargin" id="FM0-TO-uEk"/>
+                            <constraint firstItem="LEH-tj-rlo" firstAttribute="top" secondItem="buY-rE-70k" secondAttribute="bottom" id="IT5-gc-vyN"/>
+                            <constraint firstItem="buY-rE-70k" firstAttribute="top" secondItem="xPt-VS-8OA" secondAttribute="bottom" id="iCb-GN-uNU"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="buY-rE-70k" secondAttribute="trailing" id="pWw-aS-oTb"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="filterView" destination="buY-rE-70k" id="9ge-cX-DNj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="77q-Md-56S" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="276" y="-1121"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="overlay.png" width="1080" height="1920"/>
+    </resources>
+</document>
