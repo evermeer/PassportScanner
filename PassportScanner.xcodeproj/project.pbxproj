@@ -19,7 +19,7 @@
 		7FDBE3621B9EE5B1004E7945 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3611B9EE5B1004E7945 /* overlay.png */; };
 		7FDBE3641B9EE777004E7945 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3631B9EE777004E7945 /* tessdata */; };
 		7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */; };
-		9761CA4BF8108044A47E681B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B541379838EC928F1B3B6C /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9761CA4BF8108044A47E681B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B541379838EC928F1B3B6C /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +44,6 @@
 		7F132F431B9ED2C5001A542A /* PassportScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassportScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F132F481B9ED2C5001A542A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F132F491B9ED2C5001A542A /* PassportScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportScannerTests.swift; sourceTree = "<group>"; };
-		7F159DF61BA2F8A600247CB1 /* circle.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = circle.yml; sourceTree = "<group>"; };
 		7F1B4CC51B9ED5340090F05E /* MyScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyScanViewController.swift; sourceTree = "<group>"; };
 		7F1B4CC81B9ED5810090F05E /* MRZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRZ.swift; sourceTree = "<group>"; };
 		7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassportScannerController.swift; sourceTree = "<group>"; };
@@ -85,7 +84,6 @@
 			children = (
 				7FFA7CD91BAAE01A00B3A0B8 /* .gitignore */,
 				7FFA7CDB1BAC13DC00B3A0B8 /* .travis.yml */,
-				7F159DF61BA2F8A600247CB1 /* circle.yml */,
 				7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */,
 				7FDBE3651B9F02D2004E7945 /* README.md */,
 				7FDBE3681B9F0328004E7945 /* LICENSE */,
@@ -397,6 +395,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -443,6 +442,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -504,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -524,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
