@@ -12,7 +12,6 @@
 		7F132F391B9ED2C5001A542A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F132F371B9ED2C5001A542A /* Main.storyboard */; };
 		7F132F3B1B9ED2C5001A542A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F132F3A1B9ED2C5001A542A /* Images.xcassets */; };
 		7F132F3E1B9ED2C5001A542A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F132F3C1B9ED2C5001A542A /* LaunchScreen.xib */; };
-		7F132F4A1B9ED2C5001A542A /* PassportScannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F132F491B9ED2C5001A542A /* PassportScannerTests.swift */; };
 		7F1B4CC61B9ED5340090F05E /* MyScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC51B9ED5340090F05E /* MyScanViewController.swift */; };
 		7F1B4CCA1B9ED5810090F05E /* MRZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC81B9ED5810090F05E /* MRZ.swift */; };
 		7F1B4CCB1B9ED5810090F05E /* PassportScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */; };
@@ -21,16 +20,6 @@
 		7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */; };
 		9761CA4BF8108044A47E681B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B541379838EC928F1B3B6C /* Pods.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		7F132F441B9ED2C5001A542A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7F132F261B9ED2C5001A542A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7F132F2D1B9ED2C5001A542A;
-			remoteInfo = PassportScanner;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7F0601A11BA029DE00091999 /* ezgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ezgif.gif; sourceTree = "<group>"; };
@@ -41,9 +30,6 @@
 		7F132F381B9ED2C5001A542A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7F132F3A1B9ED2C5001A542A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7F132F3D1B9ED2C5001A542A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		7F132F431B9ED2C5001A542A /* PassportScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PassportScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7F132F481B9ED2C5001A542A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7F132F491B9ED2C5001A542A /* PassportScannerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassportScannerTests.swift; sourceTree = "<group>"; };
 		7F1B4CC51B9ED5340090F05E /* MyScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyScanViewController.swift; sourceTree = "<group>"; };
 		7F1B4CC81B9ED5810090F05E /* MRZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRZ.swift; sourceTree = "<group>"; };
 		7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassportScannerController.swift; sourceTree = "<group>"; };
@@ -69,13 +55,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F132F401B9ED2C5001A542A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -91,7 +70,6 @@
 				7FDBE3631B9EE777004E7945 /* tessdata */,
 				7F1B4CC71B9ED5810090F05E /* Pod */,
 				7F132F301B9ED2C5001A542A /* PassportScanner */,
-				7F132F461B9ED2C5001A542A /* PassportScannerTests */,
 				7F132F2F1B9ED2C5001A542A /* Products */,
 				9C32A16DC6E9DE7A5C59D23F /* Pods */,
 				D5647A18A08F2CD403177038 /* Frameworks */,
@@ -102,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				7F132F2E1B9ED2C5001A542A /* PassportScanner.app */,
-				7F132F431B9ED2C5001A542A /* PassportScannerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,23 +104,6 @@
 			children = (
 				7F132F321B9ED2C5001A542A /* Info.plist */,
 				7F1B4CCC1B9EDC5E0090F05E /* PassportScanner-Bridging-Header.h */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		7F132F461B9ED2C5001A542A /* PassportScannerTests */ = {
-			isa = PBXGroup;
-			children = (
-				7F132F491B9ED2C5001A542A /* PassportScannerTests.swift */,
-				7F132F471B9ED2C5001A542A /* Supporting Files */,
-			);
-			path = PassportScannerTests;
-			sourceTree = "<group>";
-		};
-		7F132F471B9ED2C5001A542A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7F132F481B9ED2C5001A542A /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -197,24 +157,6 @@
 			productReference = 7F132F2E1B9ED2C5001A542A /* PassportScanner.app */;
 			productType = "com.apple.product-type.application";
 		};
-		7F132F421B9ED2C5001A542A /* PassportScannerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7F132F501B9ED2C5001A542A /* Build configuration list for PBXNativeTarget "PassportScannerTests" */;
-			buildPhases = (
-				7F132F3F1B9ED2C5001A542A /* Sources */,
-				7F132F401B9ED2C5001A542A /* Frameworks */,
-				7F132F411B9ED2C5001A542A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7F132F451B9ED2C5001A542A /* PBXTargetDependency */,
-			);
-			name = PassportScannerTests;
-			productName = PassportScannerTests;
-			productReference = 7F132F431B9ED2C5001A542A /* PassportScannerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -227,10 +169,6 @@
 				TargetAttributes = {
 					7F132F2D1B9ED2C5001A542A = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					7F132F421B9ED2C5001A542A = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = 7F132F2D1B9ED2C5001A542A;
 					};
 				};
 			};
@@ -248,7 +186,6 @@
 			projectRoot = "";
 			targets = (
 				7F132F2D1B9ED2C5001A542A /* PassportScanner */,
-				7F132F421B9ED2C5001A542A /* PassportScannerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -264,13 +201,6 @@
 				7FDBE3641B9EE777004E7945 /* tessdata in Resources */,
 				7F132F3E1B9ED2C5001A542A /* LaunchScreen.xib in Resources */,
 				7F132F3B1B9ED2C5001A542A /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7F132F411B9ED2C5001A542A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,23 +267,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F132F3F1B9ED2C5001A542A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7F132F4A1B9ED2C5001A542A /* PassportScannerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7F132F451B9ED2C5001A542A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7F132F2D1B9ED2C5001A542A /* PassportScanner */;
-			targetProxy = 7F132F441B9ED2C5001A542A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		7F132F371B9ED2C5001A542A /* Main.storyboard */ = {
@@ -500,44 +414,6 @@
 			};
 			name = Release;
 		};
-		7F132F511B9ED2C5001A542A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = PassportScannerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.mirabeau.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PassportScanner.app/PassportScanner";
-			};
-			name = Debug;
-		};
-		7F132F521B9ED2C5001A542A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = PassportScannerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "nl.mirabeau.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PassportScanner.app/PassportScanner";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -555,15 +431,6 @@
 			buildConfigurations = (
 				7F132F4E1B9ED2C5001A542A /* Debug */,
 				7F132F4F1B9ED2C5001A542A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7F132F501B9ED2C5001A542A /* Build configuration list for PBXNativeTarget "PassportScannerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7F132F511B9ED2C5001A542A /* Debug */,
-				7F132F521B9ED2C5001A542A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
