@@ -96,6 +96,9 @@ public class PassportScannerController: UIViewController {
             if lighting > 2.91 {
                 self.exposure.exposure = currentExposure - (lighting - 2.88) * 2
             }
+            if self.exposure.exposure > 3 {
+                self.exposure.exposure = 3
+            }
         }
 
         // Chaining the filters
