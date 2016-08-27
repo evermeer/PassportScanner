@@ -1,1 +1,0 @@
-../../../../TesseractOCRiOS/TesseractOCR/include/leptonica/stack.h

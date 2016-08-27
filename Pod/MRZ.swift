@@ -11,28 +11,44 @@ import Foundation
 public class MRZ: NSObject {
     // check data with http://en.wikipedia.org/wiki/Machine-readable_passport
 
-    public var isValid: Float = 0             // A value of 1 is for when all validations are OK
-    private var debug = false                  // Set to true (see init) to see what's going on
+    /// Was the last scan valid. A value of 1 is for when all validations are OK
+    public var isValid: Float = 0
+    /// Do you want to see debug messages? Set to true (see init) to see what's going on.
+    private var debug = false
 
-    // Line 1
-    public var documentType: String = ""          // start 1, len 1
-    public var documentSubType: String = ""       // start 2, len 1
-    public var countryCode: String = ""           // start 3, len 3
-    public var lastName: String = ""              // start 6, len 39
-    public var firstName: String = ""             // from lastname after first <<
+    /// The document type from the 1st line of the MRZ. (start 1, len 1)
+    public var documentType: String = ""
+    /// The document sub type from the 1st line of the MRZ. (start 2, len 1)
+    public var documentSubType: String = ""
+    /// The country code from the 1st line of the MRZ (start 3, len 3)
+    public var countryCode: String = ""
+    /// The last name from the 1st line of the MRZ (start 6, len 39, until first <<)
+    public var lastName: String = ""
+    /// The firstname from the 1st line of the MRZ (start 6, len 39, after first <<)
+    public var firstName: String = ""
 
-    // Line 2
-    public var passportNumber: String = ""        // start 1, len 9   // start 10, len 1 - validating the passportNumber
+    /// The passport number from the 2nd line of the MRZ. (start 1, len 9)
+    public var passportNumber: String = ""
+    /// start 10, len 1 - validating the passportNumber
     private var passportNumberIsValid = false
-    public var nationality: String = ""           // start 11, len 3
-    public var dateOfBirth: NSDate?               // start 14, len 6  // start 20, len 1 - validating the dateOfBirth
+    /// The nationality from the 2nd line of the MRZ. (start 11, len 3)
+    public var nationality: String = ""
+    /// The date of birth from the 2nd line of the MRZ (start 14, len 6)
+    public var dateOfBirth: NSDate?
+    /// start 20, len 1 - validating the dateOfBirth
     private var dateOfBirthIsValid = false
-    public var sex: String = ""                   // start 21, len 1
-    public var expirationDate: NSDate?            // start 22, len 6  // start 28, len 1 - validating the expirationDate
+    /// The sex from the 2nd line of the MRZ. (start 21, len 1)
+    public var sex: String = ""
+    /// The expiration date from the 2nd line of the MRZ. (start 22, len 6)
+    public var expirationDate: NSDate?
+    /// start 28, len 1 - validating the expirationDate
     private var expirationDateIsValid = false
-    public var personalNumber: String = ""        // start 29, len 14 // start 43, len 1 - validating the personalNumber
+    /// The personal number from the 2nd line of the MRZ. (start 29, len 14
+    public var personalNumber: String = ""
+    /// start 43, len 1 - validating the personalNumber
     private var personalNumberIsValid = false
-    private var dataIsValid = false                // start 44, len 1 - validating passport number, date of birth, expirationdate
+    // start 44, len 1 - validating passport number, date of birth, expirationdate
+    private var dataIsValid = false
 
 
     /**
@@ -286,7 +302,6 @@ extension String {
     /**
     Get a substring
 
-    :param: s    the string value
     :param: from from which character
     :param: to   to what character
 

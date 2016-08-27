@@ -8,48 +8,37 @@
 import Foundation
 import UIKit
 import TesseractOCR
-import GPUImage
+import GPUImage2
 import UIImage_Resize
+import AVFoundation
 
 public class PassportScannerController: UIViewController {
 
     /// Set debug to true if you want to see what's happening
     public var debug = false
+
     /// Set accuracy that is required for the scan. 1 = all checksums should be ok
     public var accuracy: Float = 1
-    /// When you create your own view, then make sure you have a GPUImageView that is linked to this
-    @IBOutlet var filterView: GPUImageView!
 
-    ///  wait a fraction of a second between scans to give the system time to handle things.
-    var timer: NSTimer? //
+    /// When you create your own view, then make sure you have a GPUImageView that is linked to this
+    @IBOutlet var renderView: RenderView!
 
     /// For capturing the video and passing it on to the filters.
-    private let videoCamera: GPUImageVideoCamera
+    var camera: Camera!
 
     // Quick reference to the used filter configurations
-    var exposure = GPUImageExposureFilter()
-    var highlightShadow = GPUImageHighlightShadowFilter()
-    var saturation = GPUImageSaturationFilter()
-    var contrast = GPUImageContrastFilter()
-    var adaptiveTreshold = GPUImageAdaptiveThresholdFilter()
-    var crop = GPUImageCropFilter()
-    var averageColor = GPUImageAverageColor()
+    var exposure = ExposureAdjustment()
+    var highlightShadow = HighlightsAndShadows()
+    var saturation = SaturationAdjustment()
+    var contrast = ContrastAdjustment()
+    var adaptiveTreshold = AdaptiveThreshold()
+    var crop = Crop()
+    var averageColor = AverageColorExtractor()
+
+    var pictureOutput = PictureOutput()
 
     /// The tesseract OCX engine
     var tesseract: G8Tesseract = G8Tesseract(language: "eng")
-
-    /**
-    Initializer that will initialize the video camera forced to portait mode
-
-    :param: aDecoder the NSCOder
-
-    :returns: instance of this controller
-    */
-    public required init?(coder aDecoder: NSCoder) {
-        videoCamera = GPUImageVideoCamera(sessionPreset: AVCaptureSessionPreset1920x1080, cameraPosition: .Back)
-        videoCamera.outputImageOrientation = .Portrait
-        super.init(coder: aDecoder)
-    }
 
     /**
     Rotation is not needded.
@@ -74,20 +63,23 @@ public class PassportScannerController: UIViewController {
     */
     public override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.whiteColor()
 
         // Filter settings
         exposure.exposure = 0.8 // -10 - 10
         highlightShadow.highlights  = 0.7 // 0 - 1
-        saturation.saturation  = 0.3 // 0 - 2
-        contrast.contrast = 3.0  // 0 - 4
+        saturation.saturation  = 0.4 // 0 - 2
+        contrast.contrast = 2.0  // 0 - 4
         adaptiveTreshold.blurRadiusInPixels = 8.0
 
-        // Only use this area for the OCR
-        crop.cropRegion = CGRectMake(350.0/1080.0, 110.0/1920.0, 350.0/1080, 1700.0/1920.0)
+        // Specify the crop region that will be used for the OCR
+        crop.cropSizeInPixels = Size(width: 350, height: 1700)
+        crop.locationOfCropInPixels = Position(350, 110, nil)
+        crop.overriddenOutputRotation = .RotateClockwise
 
         // Try to dinamically optimize the exposure based on the average color
-        averageColor.colorAverageProcessingFinishedBlock = {(redComponent, greenComponent, blueComponent, alphaComponent, frameTime) in
-            let lighting = redComponent + greenComponent + blueComponent
+        averageColor.extractedColorCallback = { color in
+            let lighting = color.blue + color.green + color.red
             let currentExposure = self.exposure.exposure
             // The stablil color is between 2.85 and 2.91. Otherwise change the exposure
             if lighting < 2.85 {
@@ -96,24 +88,40 @@ public class PassportScannerController: UIViewController {
             if lighting > 2.91 {
                 self.exposure.exposure = currentExposure - (lighting - 2.88) * 2
             }
+            if self.exposure.exposure > 3 {
+                self.exposure.exposure = 3
+            }
         }
 
-        // Chaining the filters
-        videoCamera.addTarget(exposure)
-        exposure.addTarget(highlightShadow)
-        highlightShadow.addTarget(saturation)
-        saturation.addTarget(contrast)
-        contrast.addTarget(self.filterView)
+        // Initialize the camera and chain the filters
+        do {
+            camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
+            camera.location = PhysicalCameraLocation.BackFacing
 
-        // Strange! Adding this filter will give a great readable picture, but the OCR won't work.
-        //contrast.addTarget(adaptiveTreshold)
-        //adaptiveTreshold.addTarget(self.filterView)
+            camera --> exposure --> highlightShadow --> saturation --> contrast --> adaptiveTreshold --> renderView
+            adaptiveTreshold --> crop --> averageColor
+        } catch {
+            fatalError("Could not initialize rendering pipeline: \(error)")
+        }
 
-        // Adding these 2 extra filters to automatically control exposure depending of the average color in the scan area
-        contrast.addTarget(crop)
-        crop.addTarget(averageColor)
+        // download traineddata to tessdata folder for language from:
+        // https://code.google.com/p/tesseract-ocr/downloads/list
+        // ocr traineddata ripped from:
+        // http://getandroidapp.org/applications/business/79952-nfc-passport-reader-2-0-8.html
+        // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
 
-        self.view.backgroundColor = UIColor.whiteColor()
+        // tesseract OCR settings
+        self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
+        self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_freq_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_unambig_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_punc_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_number_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_fixed_length_dawgs")
+        self.tesseract.setVariableValue("FALSE", forKey: "load_bigram_dawg")
+        self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
+
     }
 
     /**
@@ -123,9 +131,12 @@ public class PassportScannerController: UIViewController {
     */
     @IBAction public func StartScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.blackColor()
+        camera.startCapture()
 
-        self.videoCamera.startCameraCapture()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(PassportScannerController.scan), userInfo: nil, repeats: false)
+        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            self.scan()
+        })
     }
 
     /**
@@ -135,9 +146,7 @@ public class PassportScannerController: UIViewController {
     */
     @IBAction public func StopScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.whiteColor()
-        self.videoCamera.stopCameraCapture()
-        timer?.invalidate()
-        timer = nil
+        camera.stopCapture()
         abbortScan()
     }
 
@@ -145,77 +154,36 @@ public class PassportScannerController: UIViewController {
     Perform a scan
     */
     public func scan() {
-        self.timer?.invalidate()
-        self.timer = nil
-
         print("Start OCR")
 
-        // Get a snapshot from this filter, should be from the next runloop
-        let currentFilterConfiguration = contrast
-        NSOperationQueue.mainQueue().addOperationWithBlock {
-            currentFilterConfiguration.useNextFrameForImageCapture()
-            let snapshot = currentFilterConfiguration.imageFromCurrentFramebuffer()
-            if snapshot == nil {
-                print("- Could not get snapshot from camera")
-                self.StartScan(self)
-                return
-            }
-
-            print("- Could get snapshot from camera")
-
+        pictureOutput = PictureOutput()
+        pictureOutput.encodedImageFormat = .JPEG
+        pictureOutput.onlyCaptureNextFrame = true
+        pictureOutput.imageAvailableCallback = { sourceImage in
             var result: String?
 
-            autoreleasepool {
-                // Crop scan area
-                let cropRect: CGRect! = CGRect(x: 350, y: 110, width: 350, height: 1700)
-                let imageRef: CGImageRef! = CGImageCreateWithImageInRect(snapshot.CGImage, cropRect)
-                //let croppedImage:UIImage = UIImage(CGImage: imageRef)
+            // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
+            let croppedImage: UIImage = sourceImage.resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1700 * 0.5), scaleIfSmaller: true)
 
-                // Four times faster scan speed when the image is smaller. Another bennefit is that the OCR results are better at this resolution
-                let croppedImage: UIImage =   UIImage(CGImage: imageRef).resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1700 * 0.5 ), scaleIfSmaller: true)
+            // rotate image. tesseract needs the correct orientation.
+            let image: UIImage = croppedImage.rotate(byDegrees: -90, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width))
 
-
-                // Rotate cropped image
-                let selectedFilter = GPUImageTransformFilter()
-                selectedFilter.setInputRotation(kGPUImageRotateLeft, atIndex: 0)
-                let image: UIImage = selectedFilter.imageByFilteringImage(croppedImage)
-
-                // Start OCR
-                // download traineddata to tessdata folder for language from:
-                // https://code.google.com/p/tesseract-ocr/downloads/list
-                // ocr traineddata ripped from:
-                // http://getandroidapp.org/applications/business/79952-nfc-passport-reader-2-0-8.html
-                // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
-                self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
-                self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
-
-//Testing OCR optimisations
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_freq_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_unambig_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_punc_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_number_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_fixed_length_dawgs")
-//                self.tesseract.setVariableValue("FALSE", forKey: "load_bigram_dawg")
-//                self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
-
-                self.tesseract.image = image
-                print("- Start recognize")
-                self.tesseract.recognize()
-                result = self.tesseract.recognizedText
-                //tesseract = nil
-                G8Tesseract.clearCache()
-            }
-
+            // Start OCR
+            self.tesseract.image = image
+            print("- Start recognize")
+            self.tesseract.recognize()
+            result = self.tesseract.recognizedText
+            //tesseract = nil
+            G8Tesseract.clearCache()
             print("Scanresult : \(result)")
 
-            // Perform OCR
+            // Validate the MRZ
             if let r = result {
                 let mrz = MRZ(scan: r, debug: self.debug)
                 if  mrz.isValid < self.accuracy {
                     print("Scan quality insufficient : \(mrz.isValid)")
                 } else {
-                    self.videoCamera.stopCameraCapture()
+                    self.camera.stopCapture()
                     self.succesfullScan(mrz)
                     return
                 }
@@ -223,6 +191,7 @@ public class PassportScannerController: UIViewController {
             self.StartScan(self)
 
         }
+        self.crop --> pictureOutput
     }
 
     /**
@@ -241,5 +210,22 @@ public class PassportScannerController: UIViewController {
         assertionFailure("You should overwrite this function to handle the scan results")
     }
 
+}
 
+extension UIImage {
+
+    func rotate(byDegrees degree: Double, toSize: CGSize? = nil) -> UIImage {
+        let rotatedSize = toSize ?? self.size
+        let radians = CGFloat(degree*M_PI)/180.0 as CGFloat
+        let scale = UIScreen.mainScreen().scale
+        UIGraphicsBeginImageContextWithOptions(rotatedSize, false, scale)
+        let bitmap = UIGraphicsGetCurrentContext()
+        CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2)
+        CGContextRotateCTM(bitmap, radians)
+        CGContextScaleCTM(bitmap, 1.0, -1.0)
+        CGContextDrawImage(bitmap, CGRectMake(-self.size.width / 2, -self.size.height / 2 , self.size.width, self.size.height), self.CGImage )
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+
+        return newImage
+    }
 }

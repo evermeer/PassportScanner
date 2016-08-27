@@ -1,1 +1,0 @@
-../../../../TesseractOCRiOS/TesseractOCR/UIImage+G8Filters.h

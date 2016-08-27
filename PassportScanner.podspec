@@ -8,13 +8,12 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "PassportScanner"
-s.version      = "1.0.3"
+s.version      = "1.0.4"
 s.summary      = "Scan the MRZ code on a passport"
 
 s.description  = "Scan the MRZ code on a passport and it's data'"
 
 s.homepage     = "https://github.com/evermeer/PassportScanner"
-s.screenshots  = ["https://github.com/evermeer/PassportScanner/blob/master/Screenshot1.jpg?raw=true", "https://github.com/evermeer/PassportScanner/blob/master/Screenshot2.jpg?raw=true"]
 
 
 # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
