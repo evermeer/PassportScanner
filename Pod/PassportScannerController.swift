@@ -174,7 +174,7 @@ public class PassportScannerController: UIViewController {
         pictureOutput.encodedImageFormat = .PNG
         pictureOutput.onlyCaptureNextFrame = true
         pictureOutput.imageAvailableCallback = { sourceImage in
-            self.processImage(sourceImage)
+            if self.processImage(sourceImage) { return }
 
             // Not successfull, start another scan
             self.StartScan(self)
@@ -193,7 +193,7 @@ public class PassportScannerController: UIViewController {
         let imagePath = NSURL(fileURLWithPath: path).URLByAppendingPathComponent("temp.png")
         self.crop.saveNextFrameToURL(imagePath, format: .PNG)
         if let sourceImage: UIImage = UIImage(data: NSData(contentsOfURL:(imagePath)) ?? NSData()) {
-            self.processImage(sourceImage)
+            if self.processImage(sourceImage) { return }
         }
         // Not successfull, start another scan
         self.StartScan(self)
@@ -204,7 +204,7 @@ public class PassportScannerController: UIViewController {
 
      - parameter sourceImage: The image that needs to be processed
      */
-    public func processImage(sourceImage: UIImage) {
+    public func processImage(sourceImage: UIImage) -> Bool {
         // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
         let croppedImage: UIImage = sourceImage.resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
 
@@ -221,8 +221,9 @@ public class PassportScannerController: UIViewController {
         } else {
             self.camera.stopCapture()
             self.succesfullScan(mrz)
-            return
+            return true
         }
+        return false
     }
 
     /**
