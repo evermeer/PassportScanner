@@ -17,6 +17,12 @@ PassportScanner
 [![LinkedIn](https://img.shields.io/badge/linkedin-Edwin Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
 [![eMail](https://img.shields.io/badge/email-edwin@mirabeau.nl-blue.svg?style=flat)](mailto:edwin@mirabeau.nl?SUBJECT=About PassportScanner)
 
+## Work on this branch:
+In this branch the GPUImage library is upgraded to GPUImage2. The current status is:
+- cleaner code
+- there are 2 versions of the scan method each with it's own disadvantage. (crash or image saved to disk)
+- For some reason tesseract only scans the left part of the image.
+
 ## What is this
 With PassportScanner you can use your camera to scan the [MRZ code](http://en.wikipedia.org/wiki/Machine-readable_passport) of a passport. It will extract all data like firstname, lastname, passport number, nationality, date of birth, expiration date and personal numer.
 

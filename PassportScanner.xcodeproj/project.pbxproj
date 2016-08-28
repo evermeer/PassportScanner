@@ -146,12 +146,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F132F4D1B9ED2C5001A542A /* Build configuration list for PBXNativeTarget "PassportScanner" */;
 			buildPhases = (
-				948F1233E9D503D77A019D8B /* 📦 Check Pods Manifest.lock */,
+				948F1233E9D503D77A019D8B /* [CP] Check Pods Manifest.lock */,
 				7F132F2A1B9ED2C5001A542A /* Sources */,
 				7F132F2B1B9ED2C5001A542A /* Frameworks */,
 				7F132F2C1B9ED2C5001A542A /* Resources */,
-				EEE4EEC95D5151DE5BEEC46F /* 📦 Embed Pods Frameworks */,
-				D59E7BAB47CD88CBD4C81EB9 /* 📦 Copy Pods Resources */,
+				EEE4EEC95D5151DE5BEEC46F /* [CP] Embed Pods Frameworks */,
+				D59E7BAB47CD88CBD4C81EB9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,14 +213,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		948F1233E9D503D77A019D8B /* 📦 Check Pods Manifest.lock */ = {
+		948F1233E9D503D77A019D8B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,14 +228,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D59E7BAB47CD88CBD4C81EB9 /* 📦 Copy Pods Resources */ = {
+		D59E7BAB47CD88CBD4C81EB9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,14 +243,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EEE4EEC95D5151DE5BEEC46F /* 📦 Embed Pods Frameworks */ = {
+		EEE4EEC95D5151DE5BEEC46F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

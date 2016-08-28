@@ -73,8 +73,8 @@ public class PassportScannerController: UIViewController {
         adaptiveTreshold.blurRadiusInPixels = 8.0
 
         // Specify the crop region that will be used for the OCR
-        crop.cropSizeInPixels = Size(width: 350, height: 1700)
-        crop.locationOfCropInPixels = Position(350, 110, nil)
+        crop.cropSizeInPixels = Size(width: 350, height: 1800)
+        crop.locationOfCropInPixels = Position(350, 60, nil)
         crop.overriddenOutputRotation = .RotateClockwise
 
         // Try to dinamically optimize the exposure based on the average color
@@ -90,6 +90,9 @@ public class PassportScannerController: UIViewController {
             }
             if self.exposure.exposure > 3 {
                 self.exposure.exposure = 3
+            }
+            if self.exposure.exposure < -3 {
+                self.exposure.exposure = -3
             }
         }
 
@@ -135,7 +138,16 @@ public class PassportScannerController: UIViewController {
 
         let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
         dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-            self.scan()
+
+            //TODO: fix this - Testing versions.
+            self.scanV1()
+                // will crash regulary
+                // ocasionally getting the warning: WARNING: Tried to overrelease a framebuffer
+                // only the 1/2 of the image will be processed by tesseract
+
+            //self.scanV2()
+                // image will be on disc (possible security issue)
+                // only the 1/2 of the image will be processed by tesseract
         })
     }
 
@@ -150,48 +162,87 @@ public class PassportScannerController: UIViewController {
         abbortScan()
     }
 
+
     /**
-    Perform a scan
-    */
-    public func scan() {
+     Perform a scan using PictureOutput
+     */
+    public func scanV1() {
+        // This version is not good. It will crash regulary and only the 1/2 of the image will be processed by tesseract
         print("Start OCR")
 
         pictureOutput = PictureOutput()
-        pictureOutput.encodedImageFormat = .JPEG
+        pictureOutput.encodedImageFormat = .PNG
         pictureOutput.onlyCaptureNextFrame = true
         pictureOutput.imageAvailableCallback = { sourceImage in
-            var result: String?
+            self.processImage(sourceImage)
 
-            // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
-            let croppedImage: UIImage = sourceImage.resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1700 * 0.5), scaleIfSmaller: true)
-
-            // rotate image. tesseract needs the correct orientation.
-            let image: UIImage = croppedImage.rotate(byDegrees: -90, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width))
-
-            // Start OCR
-            self.tesseract.image = image
-            print("- Start recognize")
-            self.tesseract.recognize()
-            result = self.tesseract.recognizedText
-            //tesseract = nil
-            G8Tesseract.clearCache()
-            print("Scanresult : \(result)")
-
-            // Validate the MRZ
-            if let r = result {
-                let mrz = MRZ(scan: r, debug: self.debug)
-                if  mrz.isValid < self.accuracy {
-                    print("Scan quality insufficient : \(mrz.isValid)")
-                } else {
-                    self.camera.stopCapture()
-                    self.succesfullScan(mrz)
-                    return
-                }
-            }
+            // Not successfull, start another scan
             self.StartScan(self)
-
         }
         self.crop --> pictureOutput
+    }
+
+    /**
+    Perform a scan using save to file
+    */
+    public func scanV2() {
+        print("Start OCR")
+        // This version of is not good. The image will be on disc (possible security issue) and still only half the image will be processed by tesseract.
+        // Instead of using the PictureOutput (prefered way) we will write an load the image from disk
+        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
+        let imagePath = NSURL(fileURLWithPath: path).URLByAppendingPathComponent("temp.png")
+        self.crop.saveNextFrameToURL(imagePath, format: .PNG)
+        if let sourceImage: UIImage = UIImage(data: NSData(contentsOfURL:(imagePath)) ?? NSData()) {
+            self.processImage(sourceImage)
+        }
+        // Not successfull, start another scan
+        self.StartScan(self)
+    }
+
+    /**
+     Processing the image
+
+     - parameter sourceImage: The image that needs to be processed
+     */
+    public func processImage(sourceImage: UIImage) {
+        // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
+        let croppedImage: UIImage = sourceImage.resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
+
+        // rotate image. tesseract needs the correct orientation.
+        let image: UIImage = croppedImage.rotate(byDegrees: -90, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width))
+
+        // Perform the OCR scan
+        let result: String = self.doOCR(image)
+
+        // Create the MRZ object and validate if it's OK
+        let mrz = MRZ(scan: result, debug: self.debug)
+        if  mrz.isValid < self.accuracy {
+            print("Scan quality insufficient : \(mrz.isValid)")
+        } else {
+            self.camera.stopCapture()
+            self.succesfullScan(mrz)
+            return
+        }
+    }
+
+    /**
+     Perform the tesseract OCR on an image.
+
+     - parameter image: The image to be scanned
+
+     - returns: The OCR result
+     */
+    public func doOCR(image: UIImage) -> String {
+        // Start OCR
+        var result: String?
+        self.tesseract.image = image
+        print("- Start recognize")
+        self.tesseract.recognize()
+        result = self.tesseract.recognizedText
+        //tesseract = nil
+        G8Tesseract.clearCache()
+        print("Scanresult : \(result)")
+        return result ?? ""
     }
 
     /**
