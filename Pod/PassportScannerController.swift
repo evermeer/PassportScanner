@@ -116,6 +116,7 @@ public class PassportScannerController: UIViewController {
         // tesseract OCR settings
         self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
         self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
+/*
         self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
         self.tesseract.setVariableValue("FALSE", forKey: "load_freq_dawg")
         self.tesseract.setVariableValue("FALSE", forKey: "load_unambig_dawg")
@@ -124,7 +125,7 @@ public class PassportScannerController: UIViewController {
         self.tesseract.setVariableValue("FALSE", forKey: "load_fixed_length_dawgs")
         self.tesseract.setVariableValue("FALSE", forKey: "load_bigram_dawg")
         self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
-
+*/
     }
 
     /**
@@ -210,7 +211,7 @@ public class PassportScannerController: UIViewController {
 
         // rotate image. tesseract needs the correct orientation.
         let image: UIImage = croppedImage.rotate(byDegrees: -90, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width))
-
+        
         // Perform the OCR scan
         let result: String = self.doOCR(image)
 
