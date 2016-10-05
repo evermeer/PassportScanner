@@ -26,7 +26,7 @@ class MyScanViewController: PassportScannerController {
         super.viewDidLoad()
         self.debug = true // So that we can see what's going on (scan text and quality indicator)
         self.accuracy = 1  // 1 = all checksums should pass (is the default so we could skip this line)
-        self.StartScan(self)
+        self.StartScan(sender: self)
     }
     
     /**
@@ -36,15 +36,15 @@ class MyScanViewController: PassportScannerController {
     */
     override func succesfullScan(mrz: MRZ) {
         print("mrz: {\(mrz.description)\n}")
-        delegate?.processMRZ(mrz)
-        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate?.processMRZ(mrz: mrz)
+        self.dismiss(animated: true, completion: nil)
     }
 
     /**
     Called by the PassportScannerController when the 'close' button was pressed.
     */
     override func abbortScan() {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
 
 }

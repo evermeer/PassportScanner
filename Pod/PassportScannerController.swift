@@ -43,29 +43,28 @@ public class PassportScannerController: UIViewController {
     /**
     Rotation is not needded.
 
-    :returns: Returns .Portrait
+    :returns: Returns .portrait
     */
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get { return .portrait }
     }
-
     /**
     Hide the status bar during scan
 
     :returns: true to indicate the statusbar should be hidden
     */
-    public override func prefersStatusBarHidden() -> Bool {
-        return true
+    override public var prefersStatusBarHidden: Bool {
+        get { return true }
     }
-
+    
     /**
     Initialize all graphic filters in the viewDidLoad
     */
     public override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
 
-        // Filter settings
+       // Filter settings
         exposure.exposure = 0.8 // -10 - 10
         highlightShadow.highlights  = 0.7 // 0 - 1
         saturation.saturation  = 0.4 // 0 - 2
@@ -75,11 +74,11 @@ public class PassportScannerController: UIViewController {
         // Specify the crop region that will be used for the OCR
         crop.cropSizeInPixels = Size(width: 350, height: 1800)
         crop.locationOfCropInPixels = Position(350, 60, nil)
-        crop.overriddenOutputRotation = .RotateClockwise
+        crop.overriddenOutputRotation = .rotateClockwise
 
         // Try to dinamically optimize the exposure based on the average color
         averageColor.extractedColorCallback = { color in
-            let lighting = color.blue + color.green + color.red
+            let lighting = color.blueComponent + color.greenComponent + color.redComponent
             let currentExposure = self.exposure.exposure
             // The stablil color is between 2.85 and 2.91. Otherwise change the exposure
             if lighting < 2.85 {
@@ -99,7 +98,7 @@ public class PassportScannerController: UIViewController {
         // Initialize the camera and chain the filters
         do {
             camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
-            camera.location = PhysicalCameraLocation.BackFacing
+            camera.location = PhysicalCameraLocation.backFacing
 
             camera --> exposure --> highlightShadow --> saturation --> contrast --> adaptiveTreshold --> renderView
             adaptiveTreshold --> crop --> averageColor
@@ -134,12 +133,10 @@ public class PassportScannerController: UIViewController {
     :param: sender The sender of this event
     */
     @IBAction public func StartScan(sender: AnyObject) {
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.black
         camera.startCapture()
 
-        let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(0.2 * Double(NSEC_PER_SEC)))
-        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             //TODO: fix this - Testing versions.
             self.scanV1()
                 // will crash regulary
@@ -149,7 +146,7 @@ public class PassportScannerController: UIViewController {
             //self.scanV2()
                 // image will be on disc (possible security issue)
                 // only the 1/2 of the image will be processed by tesseract
-        })
+        }
     }
 
     /**
@@ -158,7 +155,7 @@ public class PassportScannerController: UIViewController {
     :param: sender the sender of this event
     */
     @IBAction public func StopScan(sender: AnyObject) {
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         camera.stopCapture()
         abbortScan()
     }
@@ -172,13 +169,13 @@ public class PassportScannerController: UIViewController {
         print("Start OCR")
 
         pictureOutput = PictureOutput()
-        pictureOutput.encodedImageFormat = .PNG
+        pictureOutput.encodedImageFormat = .png
         pictureOutput.onlyCaptureNextFrame = true
         pictureOutput.imageAvailableCallback = { sourceImage in
-            if self.processImage(sourceImage) { return }
+            if self.processImage(sourceImage: sourceImage) { return }
 
             // Not successfull, start another scan
-            self.StartScan(self)
+            self.StartScan(sender: self)
         }
         self.crop --> pictureOutput
     }
@@ -190,14 +187,14 @@ public class PassportScannerController: UIViewController {
         print("Start OCR")
         // This version of is not good. The image will be on disc (possible security issue) and still only half the image will be processed by tesseract.
         // Instead of using the PictureOutput (prefered way) we will write an load the image from disk
-        let path = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        let imagePath = NSURL(fileURLWithPath: path).URLByAppendingPathComponent("temp.png")
-        self.crop.saveNextFrameToURL(imagePath, format: .PNG)
-        if let sourceImage: UIImage = UIImage(data: NSData(contentsOfURL:(imagePath)) ?? NSData()) {
-            if self.processImage(sourceImage) { return }
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let imagePath = NSURL(fileURLWithPath: path).appendingPathComponent("temp.png")
+        self.crop.saveNextFrameToURL(imagePath!, format: .png)
+        if let sourceImage: UIImage = UIImage(data: (NSData(contentsOf:(imagePath)!) ?? NSData()) as Data) {
+            if self.processImage(sourceImage: sourceImage) { return }
         }
         // Not successfull, start another scan
-        self.StartScan(self)
+        self.StartScan(sender: self)
     }
 
     /**
@@ -207,13 +204,14 @@ public class PassportScannerController: UIViewController {
      */
     public func processImage(sourceImage: UIImage) -> Bool {
         // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
-        let croppedImage: UIImage = sourceImage.resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
+        let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
 
         // rotate image. tesseract needs the correct orientation.
-        let image: UIImage = croppedImage.rotate(byDegrees: -90, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width))
+//, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width)
+        let image: UIImage = croppedImage.rotate(by: -90)!
         
         // Perform the OCR scan
-        let result: String = self.doOCR(image)
+        let result: String = self.doOCR(image: image)
 
         // Create the MRZ object and validate if it's OK
         let mrz = MRZ(scan: result, debug: self.debug)
@@ -221,7 +219,7 @@ public class PassportScannerController: UIViewController {
             print("Scan quality insufficient : \(mrz.isValid)")
         } else {
             self.camera.stopCapture()
-            self.succesfullScan(mrz)
+            self.succesfullScan(mrz: mrz)
             return true
         }
         return false
@@ -265,20 +263,23 @@ public class PassportScannerController: UIViewController {
 
 }
 
+@available(iOS 10.0, *)
 extension UIImage {
-
-    func rotate(byDegrees degree: Double, toSize: CGSize? = nil) -> UIImage {
-        let rotatedSize = toSize ?? self.size
-        let radians = CGFloat(degree*M_PI)/180.0 as CGFloat
-        let scale = UIScreen.mainScreen().scale
-        UIGraphicsBeginImageContextWithOptions(rotatedSize, false, scale)
-        let bitmap = UIGraphicsGetCurrentContext()
-        CGContextTranslateCTM(bitmap, rotatedSize.width / 2, rotatedSize.height / 2)
-        CGContextRotateCTM(bitmap, radians)
-        CGContextScaleCTM(bitmap, 1.0, -1.0)
-        CGContextDrawImage(bitmap, CGRectMake(-self.size.width / 2, -self.size.height / 2 , self.size.width, self.size.height), self.CGImage )
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-
-        return newImage
+    func rotate(by degrees: Double) -> UIImage? {
+        guard let cgImage = self.cgImage else { return nil }
+        
+        let transform = CGAffineTransform(rotationAngle: CGFloat(degrees * .pi / 180.0))
+        var rect = CGRect(origin: .zero, size: self.size).applying(transform)
+        rect.origin = .zero
+        
+        let renderer = UIGraphicsImageRenderer(size: rect.size)
+        return renderer.image { renderContext in
+            renderContext.cgContext.translateBy(x: rect.midX, y: rect.midY)
+            renderContext.cgContext.rotate(by: CGFloat(degrees * .pi / 180.0))
+            renderContext.cgContext.scaleBy(x: 1.0, y: -1.0)
+            
+            let drawRect = CGRect(origin: CGPoint(x: -self.size.width/2, y: -self.size.height/2), size: self.size)
+            renderContext.cgContext.draw(cgImage, in: drawRect)
+        }
     }
 }
