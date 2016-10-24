@@ -12,7 +12,7 @@ import GPUImage2
 import UIImage_Resize
 import AVFoundation
 
-public class PassportScannerController: UIViewController {
+public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     /// Set debug to true if you want to see what's happening
     public var debug = false
@@ -108,12 +108,17 @@ public class PassportScannerController: UIViewController {
 
         // download traineddata to tessdata folder for language from:
         // https://code.google.com/p/tesseract-ocr/downloads/list
-        // ocr traineddata ripped from:
+        // ocr traineddata can be retreived from: :)
         // http://getandroidapp.org/applications/business/79952-nfc-passport-reader-2-0-8.html
-        // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
-
+        // optimisations created based on https://github.com/gali8/Tesseract-OCR-iOS/wiki/Tips-for-Improving-OCR-Results
+        
         // tesseract OCR settings
         self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
+        self.tesseract.delegate = self
+        self.tesseract.rect = CGRect(x: 0, y: 0, width: 900, height: 175)
+
+        // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
+        self.tesseract.setVariableValue("1", forKey: "tessedit_serial_unlv")
         self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
 /*
         self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
@@ -127,6 +132,14 @@ public class PassportScannerController: UIViewController {
 */
     }
 
+    
+    public func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
+        // sourceImage is the same image you sent to Tesseract above. 
+        // Processing is already done in dynamic filters    
+        return sourceImage
+    }
+    
+    
     /**
     call this from your code to start a scan immediately or hook it to a button.
 
@@ -139,8 +152,6 @@ public class PassportScannerController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             //TODO: fix this - Testing versions.
             self.scanV1()
-                // will crash regulary
-                // ocasionally getting the warning: WARNING: Tried to overrelease a framebuffer
                 // only the 1/2 of the image will be processed by tesseract
 
             //self.scanV2()
@@ -205,9 +216,8 @@ public class PassportScannerController: UIViewController {
     public func processImage(sourceImage: UIImage) -> Bool {
         // resize image. Smaller images are faster to process. When letters are too big the scan quality goes down.
         let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
-
+        
         // rotate image. tesseract needs the correct orientation.
-//, toSize: CGSize(width: croppedImage.size.height, height: croppedImage.size.width)
         let image: UIImage = croppedImage.rotate(by: -90)!
         
         // Perform the OCR scan
