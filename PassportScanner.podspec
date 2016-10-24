@@ -14,7 +14,7 @@ s.summary      = "Scan the MRZ code on a passport"
 s.description  = "Scan the MRZ code on a passport and it's data'"
 
 s.homepage     = "https://github.com/evermeer/PassportScanner"
-s.screenshots  = ["https://github.com/evermeer/PassportScanner/blob/master/Screenshot1.jpg?raw=true", "https://github.com/evermeer/PassportScanner/blob/master/Screenshot2.jpg?raw=true"]
+s.screenshots  = ["https://github.com/evermeer/PassportScanner/blob/master/ezgif.gif?raw=true"]
 
 
 # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -38,7 +38,7 @@ s.license      = { :type => "BSD-3", :file => "LICENSE" }
 #
 
 s.author    = "evermeer"
-s.social_media_url   = "http://twitter.com/evermeer"
+s.social_media_url   = "https://twitter.com/evermeer"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #
