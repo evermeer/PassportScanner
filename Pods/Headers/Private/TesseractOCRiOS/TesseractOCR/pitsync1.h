@@ -1,1 +1,0 @@
-../../../../TesseractOCRiOS/TesseractOCR/include/tesseract/pitsync1.h

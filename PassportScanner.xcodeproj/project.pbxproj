@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CF97EB80B162380AF1B29EB /* Pods_PassportScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50FF244DDD04D7495B646FC2 /* Pods_PassportScanner.framework */; };
 		7F132F341B9ED2C5001A542A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F132F331B9ED2C5001A542A /* AppDelegate.swift */; };
 		7F132F361B9ED2C5001A542A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F132F351B9ED2C5001A542A /* ViewController.swift */; };
 		7F132F391B9ED2C5001A542A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F132F371B9ED2C5001A542A /* Main.storyboard */; };
@@ -15,13 +16,16 @@
 		7F1B4CC61B9ED5340090F05E /* MyScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC51B9ED5340090F05E /* MyScanViewController.swift */; };
 		7F1B4CCA1B9ED5810090F05E /* MRZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC81B9ED5810090F05E /* MRZ.swift */; };
 		7F1B4CCB1B9ED5810090F05E /* PassportScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */; };
+		7F95EE541DBE2B5D00E7E721 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7F95EE531DBE2B5D00E7E721 /* Podfile */; };
+		7F95EE561DBE2CB000E7E721 /* .swift-version in Resources */ = {isa = PBXBuildFile; fileRef = 7F95EE551DBE2CB000E7E721 /* .swift-version */; };
 		7FDBE3621B9EE5B1004E7945 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3611B9EE5B1004E7945 /* overlay.png */; };
 		7FDBE3641B9EE777004E7945 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3631B9EE777004E7945 /* tessdata */; };
 		7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */; };
-		9761CA4BF8108044A47E681B /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B1B541379838EC928F1B3B6C /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1675C852A2375387256DF428 /* Pods-PassportScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportScanner.release.xcconfig"; path = "Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner.release.xcconfig"; sourceTree = "<group>"; };
+		50FF244DDD04D7495B646FC2 /* Pods_PassportScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassportScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F0601A11BA029DE00091999 /* ezgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ezgif.gif; sourceTree = "<group>"; };
 		7F132F2E1B9ED2C5001A542A /* PassportScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F132F321B9ED2C5001A542A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -34,6 +38,8 @@
 		7F1B4CC81B9ED5810090F05E /* MRZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRZ.swift; sourceTree = "<group>"; };
 		7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassportScannerController.swift; sourceTree = "<group>"; };
 		7F1B4CCC1B9EDC5E0090F05E /* PassportScanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PassportScanner-Bridging-Header.h"; sourceTree = "<group>"; };
+		7F95EE531DBE2B5D00E7E721 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		7F95EE551DBE2CB000E7E721 /* .swift-version */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ".swift-version"; sourceTree = "<group>"; };
 		7FDBE3611B9EE5B1004E7945 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		7FDBE3631B9EE777004E7945 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		7FDBE3651B9F02D2004E7945 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -42,8 +48,7 @@
 		7FFA7CD91BAAE01A00B3A0B8 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7FFA7CDB1BAC13DC00B3A0B8 /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; };
 		B1B541379838EC928F1B3B6C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FE570650D384FD6CE1E10A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		FFBF09A51ED7577F0EF9B025 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		B9E9EB5EBA33EC57B8B320BC /* Pods-PassportScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9761CA4BF8108044A47E681B /* Pods.framework in Frameworks */,
+				0CF97EB80B162380AF1B29EB /* Pods_PassportScanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +68,8 @@
 			children = (
 				7FFA7CD91BAAE01A00B3A0B8 /* .gitignore */,
 				7FFA7CDB1BAC13DC00B3A0B8 /* .travis.yml */,
+				7F95EE551DBE2CB000E7E721 /* .swift-version */,
+				7F95EE531DBE2B5D00E7E721 /* Podfile */,
 				7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */,
 				7FDBE3651B9F02D2004E7945 /* README.md */,
 				7FDBE3681B9F0328004E7945 /* LICENSE */,
@@ -71,8 +78,8 @@
 				7F1B4CC71B9ED5810090F05E /* Pod */,
 				7F132F301B9ED2C5001A542A /* PassportScanner */,
 				7F132F2F1B9ED2C5001A542A /* Products */,
-				9C32A16DC6E9DE7A5C59D23F /* Pods */,
 				D5647A18A08F2CD403177038 /* Frameworks */,
+				B79513CCA261C4D4835B39A3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,11 +124,11 @@
 			path = Pod;
 			sourceTree = "<group>";
 		};
-		9C32A16DC6E9DE7A5C59D23F /* Pods */ = {
+		B79513CCA261C4D4835B39A3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FE570650D384FD6CE1E10A69 /* Pods.debug.xcconfig */,
-				FFBF09A51ED7577F0EF9B025 /* Pods.release.xcconfig */,
+				B9E9EB5EBA33EC57B8B320BC /* Pods-PassportScanner.debug.xcconfig */,
+				1675C852A2375387256DF428 /* Pods-PassportScanner.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -130,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				B1B541379838EC928F1B3B6C /* Pods.framework */,
+				50FF244DDD04D7495B646FC2 /* Pods_PassportScanner.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -141,12 +149,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F132F4D1B9ED2C5001A542A /* Build configuration list for PBXNativeTarget "PassportScanner" */;
 			buildPhases = (
-				F94B4ACF095F96C9FC42B543 /* Check Pods Manifest.lock */,
+				42C1B4DE522592C2FDBA9C00 /* [CP] Check Pods Manifest.lock */,
 				7F132F2A1B9ED2C5001A542A /* Sources */,
 				7F132F2B1B9ED2C5001A542A /* Frameworks */,
 				7F132F2C1B9ED2C5001A542A /* Resources */,
-				A8E5507EC9EAE16CC72FF6A8 /* Copy Pods Resources */,
-				68C2611226A27F056A3405A5 /* Embed Pods Frameworks */,
+				D58DE42096767923102095C1 /* [CP] Embed Pods Frameworks */,
+				52F57260C38152DC6750ACCD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +177,8 @@
 				TargetAttributes = {
 					7F132F2D1B9ED2C5001A542A = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 443FV7F3ZK;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -199,7 +209,9 @@
 				7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */,
 				7F132F391B9ED2C5001A542A /* Main.storyboard in Resources */,
 				7FDBE3641B9EE777004E7945 /* tessdata in Resources */,
+				7F95EE561DBE2CB000E7E721 /* .swift-version in Resources */,
 				7F132F3E1B9ED2C5001A542A /* LaunchScreen.xib in Resources */,
+				7F95EE541DBE2B5D00E7E721 /* Podfile in Resources */,
 				7F132F3B1B9ED2C5001A542A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,49 +219,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		68C2611226A27F056A3405A5 /* Embed Pods Frameworks */ = {
+		42C1B4DE522592C2FDBA9C00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A8E5507EC9EAE16CC72FF6A8 /* Copy Pods Resources */ = {
+		52F57260C38152DC6750ACCD /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F94B4ACF095F96C9FC42B543 /* Check Pods Manifest.lock */ = {
+		D58DE42096767923102095C1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -377,10 +389,11 @@
 		};
 		7F132F4E1B9ED2C5001A542A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE570650D384FD6CE1E10A69 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = B9E9EB5EBA33EC57B8B320BC /* Pods-PassportScanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -388,19 +401,21 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/TesseractOCRiOS/TesseractOCR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.mirabeau.PassportScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.mirabeau.PassportScanner.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PassportScanner/PassportScanner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		7F132F4F1B9ED2C5001A542A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FFBF09A51ED7577F0EF9B025 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 1675C852A2375387256DF428 /* Pods-PassportScanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 443FV7F3ZK;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -408,9 +423,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/TesseractOCRiOS/TesseractOCR/lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = nl.mirabeau.PassportScanner;
+				PRODUCT_BUNDLE_IDENTIFIER = nl.mirabeau.PassportScanner.github;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "PassportScanner/PassportScanner-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

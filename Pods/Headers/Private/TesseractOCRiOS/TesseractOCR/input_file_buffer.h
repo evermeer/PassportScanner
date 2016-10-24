@@ -1,1 +1,0 @@
-../../../../TesseractOCRiOS/TesseractOCR/include/tesseract/input_file_buffer.h

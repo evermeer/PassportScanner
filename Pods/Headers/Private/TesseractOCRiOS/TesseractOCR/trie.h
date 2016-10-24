@@ -1,1 +1,0 @@
-../../../../TesseractOCRiOS/TesseractOCR/include/tesseract/trie.h

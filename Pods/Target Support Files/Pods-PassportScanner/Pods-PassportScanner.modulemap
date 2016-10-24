@@ -1,0 +1,6 @@
+framework module Pods_PassportScanner {
+  umbrella header "Pods-PassportScanner-umbrella.h"
+
+  export *
+  module * { export * }
+}

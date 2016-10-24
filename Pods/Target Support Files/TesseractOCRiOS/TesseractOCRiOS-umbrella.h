@@ -1,4 +1,6 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#endif
 
 #import "G8Constants.h"
 #import "G8RecognitionOperation.h"

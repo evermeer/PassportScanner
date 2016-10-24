@@ -11,7 +11,7 @@ import TesseractOCR
 import GPUImage
 import UIImage_Resize
 
-public class PassportScannerController: UIViewController {
+public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     /// Set debug to true if you want to see what's happening
     public var debug = false
@@ -21,7 +21,7 @@ public class PassportScannerController: UIViewController {
     @IBOutlet var filterView: GPUImageView!
 
     ///  wait a fraction of a second between scans to give the system time to handle things.
-    var timer: NSTimer? //
+    var timer: Timer? //
 
     /// For capturing the video and passing it on to the filters.
     private let videoCamera: GPUImageVideoCamera
@@ -46,27 +46,31 @@ public class PassportScannerController: UIViewController {
     :returns: instance of this controller
     */
     public required init?(coder aDecoder: NSCoder) {
-        videoCamera = GPUImageVideoCamera(sessionPreset: AVCaptureSessionPreset1920x1080, cameraPosition: .Back)
-        videoCamera.outputImageOrientation = .Portrait
+        videoCamera = GPUImageVideoCamera(sessionPreset: AVCaptureSessionPreset1920x1080, cameraPosition: .back)
+        videoCamera.outputImageOrientation = .portrait
         super.init(coder: aDecoder)
     }
 
     /**
-    Rotation is not needded.
-
-    :returns: Returns .Portrait
-    */
-    public override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+     Make sure we only have the app in .Portrait
+     
+     :returns: .Portrait orientation
+     */
+    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
     }
-
+    
     /**
-    Hide the status bar during scan
-
-    :returns: true to indicate the statusbar should be hidden
-    */
-    public override func prefersStatusBarHidden() -> Bool {
-        return true
+     Hide the status bar
+     
+     :returns: true will hide the status bar
+     */
+    override public var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
 
     /**
@@ -83,8 +87,8 @@ public class PassportScannerController: UIViewController {
         adaptiveTreshold.blurRadiusInPixels = 8.0
 
         // Only use this area for the OCR
-        crop.cropRegion = CGRectMake(350.0/1080.0, 110.0/1920.0, 350.0/1080, 1700.0/1920.0)
-
+        crop.cropRegion = CGRect(x: 350.0/1080.0, y: 110.0/1920.0, width: 350.0/1080, height: 1700.0/1920.0)
+        
         // Try to dinamically optimize the exposure based on the average color
         averageColor.colorAverageProcessingFinishedBlock = {(redComponent, greenComponent, blueComponent, alphaComponent, frameTime) in
             let lighting = redComponent + greenComponent + blueComponent
@@ -98,6 +102,9 @@ public class PassportScannerController: UIViewController {
             }
             if self.exposure.exposure > 3 {
                 self.exposure.exposure = 3
+            }
+            if self.exposure.exposure < 0.5 {
+                self.exposure.exposure = 0.5
             }
         }
 
@@ -116,19 +123,25 @@ public class PassportScannerController: UIViewController {
         contrast.addTarget(crop)
         crop.addTarget(averageColor)
 
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
     }
 
+    public func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
+        // sourceImage is the same image you sent to Tesseract above.
+        // Processing is already done in dynamic filters
+        return sourceImage
+    }
+    
     /**
     call this from your code to start a scan immediately or hook it to a button.
 
     :param: sender The sender of this event
     */
     @IBAction public func StartScan(sender: AnyObject) {
-        self.view.backgroundColor = UIColor.blackColor()
+        self.view.backgroundColor = UIColor.black
 
-        self.videoCamera.startCameraCapture()
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.02, target: self, selector: #selector(PassportScannerController.scan), userInfo: nil, repeats: false)
+        self.videoCamera.startCapture()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(PassportScannerController.scan), userInfo: nil, repeats: false)
     }
 
     /**
@@ -137,8 +150,8 @@ public class PassportScannerController: UIViewController {
     :param: sender the sender of this event
     */
     @IBAction public func StopScan(sender: AnyObject) {
-        self.view.backgroundColor = UIColor.whiteColor()
-        self.videoCamera.stopCameraCapture()
+        self.view.backgroundColor = UIColor.white
+        self.videoCamera.stopCapture()
         timer?.invalidate()
         timer = nil
         abbortScan()
@@ -155,12 +168,12 @@ public class PassportScannerController: UIViewController {
 
         // Get a snapshot from this filter, should be from the next runloop
         let currentFilterConfiguration = contrast
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+        OperationQueue.main.addOperation {
             currentFilterConfiguration.useNextFrameForImageCapture()
             let snapshot = currentFilterConfiguration.imageFromCurrentFramebuffer()
             if snapshot == nil {
                 print("- Could not get snapshot from camera")
-                self.StartScan(self)
+                self.StartScan(sender: self)
                 return
             }
 
@@ -171,17 +184,17 @@ public class PassportScannerController: UIViewController {
             autoreleasepool {
                 // Crop scan area
                 let cropRect: CGRect! = CGRect(x: 350, y: 110, width: 350, height: 1700)
-                let imageRef: CGImageRef! = CGImageCreateWithImageInRect(snapshot.CGImage, cropRect)
+                let imageRef: CGImage! = snapshot!.cgImage!.cropping(to: cropRect)
                 //let croppedImage:UIImage = UIImage(CGImage: imageRef)
 
                 // Four times faster scan speed when the image is smaller. Another bennefit is that the OCR results are better at this resolution
-                let croppedImage: UIImage =   UIImage(CGImage: imageRef).resizedImageToFitInSize(CGSize(width: 350 * 0.5, height: 1700 * 0.5 ), scaleIfSmaller: true)
+                let croppedImage: UIImage =   UIImage(cgImage: imageRef).resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1700 * 0.5 ), scaleIfSmaller: true)
 
 
                 // Rotate cropped image
                 let selectedFilter = GPUImageTransformFilter()
-                selectedFilter.setInputRotation(kGPUImageRotateLeft, atIndex: 0)
-                let image: UIImage = selectedFilter.imageByFilteringImage(croppedImage)
+                selectedFilter.setInputRotation(kGPUImageRotateLeft, at: 0)
+                let image: UIImage = selectedFilter.image(byFilteringImage: croppedImage)
 
                 // Start OCR
                 // download traineddata to tessdata folder for language from:
@@ -191,7 +204,8 @@ public class PassportScannerController: UIViewController {
                 // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
                 self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
                 self.tesseract.setVariableValue("FALSE", forKey: "x_ht_quality_check")
-
+                self.tesseract.delegate = self
+                
 //Testing OCR optimisations
 //                self.tesseract.setVariableValue("FALSE", forKey: "load_system_dawg")
 //                self.tesseract.setVariableValue("FALSE", forKey: "load_freq_dawg")
@@ -218,12 +232,12 @@ public class PassportScannerController: UIViewController {
                 if  mrz.isValid < self.accuracy {
                     print("Scan quality insufficient : \(mrz.isValid)")
                 } else {
-                    self.videoCamera.stopCameraCapture()
-                    self.succesfullScan(mrz)
+                    self.videoCamera.stopCapture()
+                    self.succesfullScan(mrz: mrz)
                     return
                 }
             }
-            self.StartScan(self)
+            self.StartScan(sender: self)
 
         }
     }

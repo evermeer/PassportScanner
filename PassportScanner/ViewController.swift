@@ -14,23 +14,27 @@ class ViewController: UIViewController, ProcessMRZ {
     @IBOutlet weak var mrzLabel: UILabel!
 
     /**
-    Make sure we only have the app in .Portrait
-    
-    :returns: .Portrait orientation
-    */
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+     Make sure we only have the app in .Portrait
+     
+     :returns: .Portrait orientation
+     */
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        get {
+            return .portrait
+        }
     }
     
     /**
-    Hide the status bar
-    
-    :returns: true will hide the status bar
-    */
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+     Hide the status bar
+     
+     :returns: true will hide the status bar
+     */
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
-
+    
     /**
     This function will be executed after pressing the scan button
     
@@ -38,9 +42,9 @@ class ViewController: UIViewController, ProcessMRZ {
     */
     @IBAction func StartScan(sender: AnyObject) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let scanVC: MyScanViewController = storyboard.instantiateViewControllerWithIdentifier("PassportScanner") as! MyScanViewController
+        let scanVC: MyScanViewController = storyboard.instantiateViewController(withIdentifier: "PassportScanner") as! MyScanViewController
         scanVC.delegate = self
-        self.presentViewController(scanVC, animated: true, completion: nil)
+        self.present(scanVC, animated: true, completion: nil)
     }
     
     /**
