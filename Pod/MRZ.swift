@@ -140,37 +140,49 @@ public class MRZ: NSObject {
         debugLog("Firstname : \(firstName)")
 
         // Line 2 parsing
-        passportNumber = line2.subString(0, to: 8)
+        passportNumber = line2.subString(0, to: 1) + line2.subString(2, to: 8).toNumber()
         debugLog("passportNumber : \(passportNumber)")
-        let passportNumberCheck = line2.subString(9, to: 9)
+        let passportNumberCheck = line2.subString(9, to: 9).toNumber()
         nationality = line2.subString(10, to: 12).replace(target: "<", with: " ")
         debugLog("nationality : \(nationality)")
-        let birth = line2.subString(13, to: 18).replace(target: "O", with: "0")
-        let birthValidation = line2.subString(19, to: 19).replace(target: "O", with: "0").replace(target: "U", with: "0")
+        let birth = line2.subString(13, to: 18).toNumber()
+        let birthValidation = line2.subString(19, to: 19).toNumber()
         dateOfBirth = MRZ.dateFromString(birth)
         debugLog("date of birth : \(dateOfBirth)")
         sex = line2.subString(20, to: 20)
         debugLog("sex : \(sex)")
-        let expiration = line2.subString(21, to: 26).replace(target:"O", with: "0").replace(target: "U", with: "0")
+        let expiration = line2.subString(21, to: 26).toNumber()
         expirationDate = MRZ.dateFromString(expiration)
         debugLog("date of expiration : \(expirationDate)")
-        let expirationValidation = line2.subString(27, to: 27).replace(target:"O", with: "0")
-        personalNumber =  line2.subString(28, to: 41).replace(target: "O", with: "0")
+        let expirationValidation = line2.subString(27, to: 27).toNumber()
+        personalNumber =  line2.subString(28, to: 41).toNumber()
         debugLog("personal number : \(personalNumber)")
-        let personalNumberValidation = line2.subString(42, to: 42).replace(target: "O", with: "0")
+        let personalNumberValidation = line2.subString(42, to: 42).toNumber()
         let data = "\(passportNumber)\(passportNumberCheck)\(birth)\(birthValidation)\(expiration)\(expirationValidation)\(personalNumber)\(personalNumberValidation)"
-        let dataValidation = line2.subString(43, to: 43).replace(target: "O", with: "0")
+        let dataValidation = line2.subString(43, to: 43).toNumber()
 
         // Validation
         isValid = 1
         passportNumberIsValid = MRZ.validate(passportNumber, check: passportNumberCheck)
+        if !passportNumberIsValid {
+            print("--> PassportNumber is invalid")
+        }
         isValid = isValid * (passportNumberIsValid ? 1 : 0.9)
         dateOfBirthIsValid = MRZ.validate(birth, check: birthValidation)
+        if !dateOfBirthIsValid {
+            print("--> DateOfBirth is invalid")
+        }
         isValid = isValid * (dateOfBirthIsValid ? 1 : 0.9)
         isValid = isValid * (MRZ.validate(expiration, check: expirationValidation) ? 1 : 0.9)
         personalNumberIsValid = MRZ.validate(personalNumber, check: personalNumberValidation)
+        if !personalNumberIsValid {
+            print("--> PersonalNumber is invalid")
+        }
         isValid = isValid * (personalNumberIsValid ? 1 : 0.9)
         dataIsValid = MRZ.validate(data, check: dataValidation)
+        if !dataIsValid {
+            print("--> Date is invalid")
+        }
         isValid = isValid * (dataIsValid ? 1 : 0.9)
 
         // Final cleaning up
@@ -272,7 +284,7 @@ public class MRZ: NSObject {
                 return false
             }
             dc = dc + d * w[(i-1)%3]
-            //NSLog("i = \(i)   c = \(c)   d = \(d)   w = \(w[(i-1)%3])   dc = \(dc)")
+            //print("i = \(i)   c = \(c)   d = \(d)   w = \(w[(i-1)%3])   dc = \(dc)")
             i += 1
         }
         if dc%10 != Int(check) {
@@ -297,6 +309,17 @@ extension String {
         return self.replacingOccurrences(of: target, with: with, options: .literal, range: nil)
     }
 
+    func toNumber() -> String {
+        return self
+            .replace(target: "O", with: "0")
+            .replace(target: "Q", with: "0")
+            .replace(target: "U", with: "0")
+            .replace(target: "D", with: "0")
+            .replace(target: "I", with: "1")
+            .replace(target: "Z", with: "2")
+    }
+
+    
     /**
     Get a substring
 
@@ -307,7 +330,7 @@ extension String {
     */
     fileprivate func subString(_ from: Int, to: Int) -> String {
         let f: String.Index = self.index(self.startIndex, offsetBy: from)
-        let t: String.Index = self.index(self.startIndex, offsetBy: to)
+        let t: String.Index = self.index(self.startIndex, offsetBy: to + 1)
         return self.substring(with: f..<t)
     }
 }

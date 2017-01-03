@@ -53,8 +53,10 @@ class ViewController: UIViewController, ProcessMRZ {
     :param: mrz The scanned MRZ
     */
     func processMRZ(mrz:MRZ) {
-        self.mrzLabel.text = mrz.description
-        mrzLabel.sizeToFit()
+        DispatchQueue.main.async {
+            self.mrzLabel.text = mrz.description
+            self.mrzLabel.sizeToFit()
+        }
     }
 }
 

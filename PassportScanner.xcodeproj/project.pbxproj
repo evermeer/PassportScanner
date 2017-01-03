@@ -392,7 +392,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F302754A230E3EC535CCC5A /* Pods-PassportScanner.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = WTH4QGEA23;
@@ -416,7 +415,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF6F11AC1D2208AB49EC1C7C /* Pods-PassportScanner.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = WTH4QGEA23;
