@@ -96,12 +96,15 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
             }
         }
 
-        // Initialize the camera and chain the filters
         do {
+            // Initialize the camera
             camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
             camera.location = PhysicalCameraLocation.backFacing
 
+            // Chain the filter to the render view
             camera --> exposure --> highlightShadow --> saturation --> contrast --> adaptiveTreshold --> renderView
+            
+            // Use the same chained filters and forward these to 2 other filters
             adaptiveTreshold --> crop --> averageColor
         } catch {
             fatalError("Could not initialize rendering pipeline: \(error)")
@@ -243,11 +246,13 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
     Override this function in your own class for processing a cancel
     */
     public func abbortScan() {
-        assertionFailure("You should overwrite this function to handle the scan results")
+        assertionFailure("You should overwrite this function to handle an aabbort")
     }
 
 }
 
+
+// Wanted to use this rotation function. Tesseract does not like the result image. Went back to GpuImage for the rotation. Will try again later so that we can remove the old GpuImage dependency
 @available(iOS 10.0, *)
 extension UIImage {
     func rotate(by degrees: Double) -> UIImage? {

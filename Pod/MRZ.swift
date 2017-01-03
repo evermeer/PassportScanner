@@ -309,6 +309,11 @@ extension String {
         return self.replacingOccurrences(of: target, with: with, options: .literal, range: nil)
     }
 
+    /**
+    Clean up incorrect detected characters
+    
+    :returns: The cleaned up string
+    */
     func toNumber() -> String {
         return self
             .replace(target: "O", with: "0")
@@ -318,7 +323,6 @@ extension String {
             .replace(target: "I", with: "1")
             .replace(target: "Z", with: "2")
     }
-
     
     /**
     Get a substring
