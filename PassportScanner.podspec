@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "PassportScanner"
-s.version      = "2.0.0"
+s.version      = "2.0.1"
 s.summary      = "Scan the MRZ code on a passport"
 
 s.description  = "Scan the MRZ code on a passport and it's data'"
@@ -86,5 +86,6 @@ s.requires_arc = true
 s.dependency "TesseractOCRiOS"
 s.dependency "GPUImage"
 s.dependency "UIImage-Resize"
+s.dependency "EVGPUImage2"
 
 end

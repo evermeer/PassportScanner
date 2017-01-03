@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double GPUImage2VersionNumber;
-FOUNDATION_EXPORT const unsigned char GPUImage2VersionString[];
+FOUNDATION_EXPORT double EVGPUImage2VersionNumber;
+FOUNDATION_EXPORT const unsigned char EVGPUImage2VersionString[];
 

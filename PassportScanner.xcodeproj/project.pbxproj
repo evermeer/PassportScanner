@@ -16,7 +16,7 @@
 		7F1B4CC61B9ED5340090F05E /* MyScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC51B9ED5340090F05E /* MyScanViewController.swift */; };
 		7F1B4CCA1B9ED5810090F05E /* MRZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC81B9ED5810090F05E /* MRZ.swift */; };
 		7F1B4CCB1B9ED5810090F05E /* PassportScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */; };
-		7F30D6121D4E0E7A00A3CBAA /* GPUImage2.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F30D6111D4E0E7A00A3CBAA /* GPUImage2.podspec */; };
+		7F30D6121D4E0E7A00A3CBAA /* EVGPUImage2.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7F30D6111D4E0E7A00A3CBAA /* EVGPUImage2.podspec */; };
 		7FDBE3621B9EE5B1004E7945 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3611B9EE5B1004E7945 /* overlay.png */; };
 		7FDBE3641B9EE777004E7945 /* tessdata in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3631B9EE777004E7945 /* tessdata */; };
 		7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */; };
@@ -37,7 +37,7 @@
 		7F1B4CC81B9ED5810090F05E /* MRZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRZ.swift; sourceTree = "<group>"; };
 		7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassportScannerController.swift; sourceTree = "<group>"; };
 		7F1B4CCC1B9EDC5E0090F05E /* PassportScanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PassportScanner-Bridging-Header.h"; sourceTree = "<group>"; };
-		7F30D6111D4E0E7A00A3CBAA /* GPUImage2.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPUImage2.podspec; sourceTree = "<group>"; };
+		7F30D6111D4E0E7A00A3CBAA /* EVGPUImage2.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EVGPUImage2.podspec; sourceTree = "<group>"; };
 		7FDBE3611B9EE5B1004E7945 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		7FDBE3631B9EE777004E7945 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		7FDBE3651B9F02D2004E7945 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		7F132F251B9ED2C5001A542A = {
 			isa = PBXGroup;
 			children = (
-				7F30D6111D4E0E7A00A3CBAA /* GPUImage2.podspec */,
+				7F30D6111D4E0E7A00A3CBAA /* EVGPUImage2.podspec */,
 				7FFA7CD91BAAE01A00B3A0B8 /* .gitignore */,
 				7FFA7CDB1BAC13DC00B3A0B8 /* .travis.yml */,
 				7FDBE3691B9F0334004E7945 /* PassportScanner.podspec */,
@@ -204,7 +204,7 @@
 			files = (
 				7FDBE3621B9EE5B1004E7945 /* overlay.png in Resources */,
 				7FDBE36A1B9F0334004E7945 /* PassportScanner.podspec in Resources */,
-				7F30D6121D4E0E7A00A3CBAA /* GPUImage2.podspec in Resources */,
+				7F30D6121D4E0E7A00A3CBAA /* EVGPUImage2.podspec in Resources */,
 				7F132F391B9ED2C5001A542A /* Main.storyboard in Resources */,
 				7FDBE3641B9EE777004E7945 /* tessdata in Resources */,
 				7F132F3E1B9ED2C5001A542A /* LaunchScreen.xib in Resources */,

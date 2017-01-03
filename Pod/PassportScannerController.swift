@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import TesseractOCR
 import GPUImage //Still using this for the rotate
-import GPUImage2
+import EVGPUImage2
 import UIImage_Resize
 import AVFoundation
 

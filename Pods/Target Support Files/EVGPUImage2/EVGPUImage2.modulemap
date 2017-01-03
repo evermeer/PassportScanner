@@ -1,0 +1,6 @@
+framework module EVGPUImage2 {
+  umbrella header "EVGPUImage2-umbrella.h"
+
+  export *
+  module * { export * }
+}

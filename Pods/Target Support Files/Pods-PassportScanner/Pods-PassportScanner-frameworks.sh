@@ -89,14 +89,14 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/EVGPUImage2/EVGPUImage2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GPUImage/GPUImage.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/GPUImage2/GPUImage2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TesseractOCRiOS/TesseractOCR.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UIImage-Resize/UIImage_Resize.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "$BUILT_PRODUCTS_DIR/EVGPUImage2/EVGPUImage2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/GPUImage/GPUImage.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/GPUImage2/GPUImage2.framework"
   install_framework "$BUILT_PRODUCTS_DIR/TesseractOCRiOS/TesseractOCR.framework"
   install_framework "$BUILT_PRODUCTS_DIR/UIImage-Resize/UIImage_Resize.framework"
 fi

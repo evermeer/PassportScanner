@@ -6,7 +6,7 @@ target 'PassportScanner' do
    pod 'TesseractOCRiOS'
    pod 'UIImage-Resize'
    pod 'GPUImage'
-   pod 'GPUImage2', :podspec => './GPUImage2.podspec'
+   pod 'EVGPUImage2'
 end
 
 post_install do |installer|
