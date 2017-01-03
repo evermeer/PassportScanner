@@ -14,10 +14,10 @@ class ViewController: UIViewController, ProcessMRZ {
     @IBOutlet weak var mrzLabel: UILabel!
 
     /**
-     Make sure we only have the app in .Portrait
-     
-     :returns: .Portrait orientation
-     */
+    Make sure we only have the app in .Portrait
+    
+    :returns: .Portrait orientation
+    */
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get {
             return .portrait
@@ -25,10 +25,10 @@ class ViewController: UIViewController, ProcessMRZ {
     }
     
     /**
-     Hide the status bar
-     
-     :returns: true will hide the status bar
-     */
+    Hide the status bar
+    
+    :returns: true will hide the status bar
+    */
     override var prefersStatusBarHidden: Bool {
         get {
             return true
@@ -53,8 +53,10 @@ class ViewController: UIViewController, ProcessMRZ {
     :param: mrz The scanned MRZ
     */
     func processMRZ(mrz:MRZ) {
-        self.mrzLabel.text = mrz.description
-        mrzLabel.sizeToFit()
+        DispatchQueue.main.async {
+            self.mrzLabel.text = mrz.description
+            self.mrzLabel.sizeToFit()
+        }
     }
 }
 

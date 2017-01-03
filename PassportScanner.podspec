@@ -8,13 +8,12 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "PassportScanner"
-s.version      = "1.2.0"
+s.version      = "2.0.0"
 s.summary      = "Scan the MRZ code on a passport"
 
 s.description  = "Scan the MRZ code on a passport and it's data'"
 
 s.homepage     = "https://github.com/evermeer/PassportScanner"
-s.screenshots  = ["https://github.com/evermeer/PassportScanner/blob/master/ezgif.gif?raw=true"]
 
 
 # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -38,7 +37,8 @@ s.license      = { :type => "BSD-3", :file => "LICENSE" }
 #
 
 s.author    = "evermeer"
-s.social_media_url   = "https://twitter.com/evermeer"
+s.authors   = { 'Edwin Vermeer' => 'edwin@evict.nl' }
+s.social_media_url   = "http://twitter.com/evermeer"
 
 # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #

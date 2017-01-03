@@ -44,6 +44,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Scanning your passport</string>
+	<string>For scanning your passport</string>
 </dict>
 </plist>

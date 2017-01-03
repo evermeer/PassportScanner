@@ -1,11 +1,12 @@
 source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
 use_frameworks!
 
 target 'PassportScanner' do
-    platform :ios, '8.0'
-    pod 'TesseractOCRiOS'
-    pod 'GPUImage'
-    pod 'UIImage-Resize'
+   pod 'TesseractOCRiOS'
+   pod 'UIImage-Resize'
+   pod 'GPUImage'
+   pod 'GPUImage2', :podspec => './GPUImage2.podspec'
 end
 
 post_install do |installer|

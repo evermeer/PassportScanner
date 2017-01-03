@@ -1,18 +1,30 @@
 PODS:
   - GPUImage (0.1.7)
+  - GPUImage2 (0.1.0)
   - TesseractOCRiOS (4.0.0)
   - UIImage-Resize (1.0.1)
 
 DEPENDENCIES:
   - GPUImage
+  - GPUImage2 (from `./GPUImage2.podspec`)
   - TesseractOCRiOS
   - UIImage-Resize
 
+EXTERNAL SOURCES:
+  GPUImage2:
+    :podspec: "./GPUImage2.podspec"
+
+CHECKOUT OPTIONS:
+  GPUImage2:
+    :commit: 858b01fc2fd7d1e07a697e8dc6c3a119e4773ef1
+    :git: https://github.com/BradLarson/GPUImage2.git
+
 SPEC CHECKSUMS:
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
+  GPUImage2: 4ff31f41a47e240e5474b49d9e83e95e2ff5c562
   TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
   UIImage-Resize: fa776860f10e6900bbaf53a73e494bdceaaccc77
 
-PODFILE CHECKSUM: c0162d52b43b3a0b6fdfe50458e049ff82137d67
+PODFILE CHECKSUM: 40b556befaa9b098b8953a879b4cfb4d7827204c
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0.beta.1
