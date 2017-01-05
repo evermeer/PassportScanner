@@ -28,6 +28,7 @@
 		6F302754A230E3EC535CCC5A /* Pods-PassportScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner.debug.xcconfig"; sourceTree = "<group>"; };
 		7F0601A11BA029DE00091999 /* ezgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ezgif.gif; sourceTree = "<group>"; };
 		7F0791381E1E744000A015A7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7F07913A1E1E75FA00A015A7 /* NLpaspoort.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NLpaspoort.jpg; sourceTree = "<group>"; };
 		7F132F2E1B9ED2C5001A542A /* PassportScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F132F321B9ED2C5001A542A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F132F331B9ED2C5001A542A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +75,7 @@
 				7FDBE3651B9F02D2004E7945 /* README.md */,
 				7FDBE3681B9F0328004E7945 /* LICENSE */,
 				7F0601A11BA029DE00091999 /* ezgif.gif */,
+				7F07913A1E1E75FA00A015A7 /* NLpaspoort.jpg */,
 				7FDBE3631B9EE777004E7945 /* tessdata */,
 				7F1B4CC71B9ED5810090F05E /* Pod */,
 				7F132F301B9ED2C5001A542A /* PassportScanner */,
