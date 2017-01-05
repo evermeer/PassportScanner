@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 import TesseractOCR
-import GPUImage //Still using this for the rotate
 import EVGPUImage2
+import GPUImage //Still using this for the rotate
 import UIImage_Resize
 import AVFoundation
 
@@ -88,26 +88,12 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
             if lighting > 2.85 {
                 self.exposure.exposure = currentExposure - (lighting - 2.80) * 2
             }
-            if self.exposure.exposure > 3 {
-                self.exposure.exposure = 3
+            if self.exposure.exposure > 2 {
+                self.exposure.exposure = 2
             }
-            if self.exposure.exposure < -3 {
-                self.exposure.exposure = -3
+            if self.exposure.exposure < -2 {
+                self.exposure.exposure = -2
             }
-        }
-
-        do {
-            // Initialize the camera
-            camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
-            camera.location = PhysicalCameraLocation.backFacing
-
-            // Chain the filter to the render view
-            camera --> exposure --> highlightShadow --> saturation --> contrast --> adaptiveTreshold --> renderView
-            
-            // Use the same chained filters and forward these to 2 other filters
-            adaptiveTreshold --> crop --> averageColor
-        } catch {
-            fatalError("Could not initialize rendering pipeline: \(error)")
         }
 
         // download traineddata to tessdata folder for language from:
@@ -134,6 +120,22 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
         self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        do {
+            // Initialize the camera
+            camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
+            camera.location = PhysicalCameraLocation.backFacing
+            
+            // Chain the filter to the render view
+            camera --> exposure  --> highlightShadow  --> saturation --> contrast --> adaptiveTreshold --> renderView
+            
+            // Use the same chained filters and forward these to 2 other filters
+            adaptiveTreshold --> crop --> averageColor
+        } catch {
+            fatalError("Could not initialize rendering pipeline: \(error)")
+        }
+    }
     
     public func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
         // sourceImage is the same image you sent to Tesseract above. 

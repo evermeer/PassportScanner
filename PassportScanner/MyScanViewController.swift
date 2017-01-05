@@ -22,8 +22,8 @@ class MyScanViewController: PassportScannerController {
     /**
     For now just start scanning the moment this view is loaded
     */
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.debug = true // So that we can see what's going on (scan text and quality indicator)
         self.accuracy = 1  // 1 = all checksums should pass (is the default so we could skip this line)
         self.StartScan(sender: self)

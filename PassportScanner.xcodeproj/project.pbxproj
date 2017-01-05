@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6B77BF6F96813FC9701C7211 /* Pods_PassportScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02EC0D812F870807F667BFA5 /* Pods_PassportScanner.framework */; };
+		7F0791391E1E744000A015A7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0791381E1E744000A015A7 /* main.m */; };
 		7F132F341B9ED2C5001A542A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F132F331B9ED2C5001A542A /* AppDelegate.swift */; };
 		7F132F361B9ED2C5001A542A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F132F351B9ED2C5001A542A /* ViewController.swift */; };
 		7F132F391B9ED2C5001A542A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F132F371B9ED2C5001A542A /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		02EC0D812F870807F667BFA5 /* Pods_PassportScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PassportScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F302754A230E3EC535CCC5A /* Pods-PassportScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PassportScanner.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner.debug.xcconfig"; sourceTree = "<group>"; };
 		7F0601A11BA029DE00091999 /* ezgif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = ezgif.gif; sourceTree = "<group>"; };
+		7F0791381E1E744000A015A7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7F132F2E1B9ED2C5001A542A /* PassportScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PassportScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F132F321B9ED2C5001A542A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F132F331B9ED2C5001A542A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		7F132F251B9ED2C5001A542A = {
 			isa = PBXGroup;
 			children = (
+				7F0791381E1E744000A015A7 /* main.m */,
 				7F30D6111D4E0E7A00A3CBAA /* EVGPUImage2.podspec */,
 				7FFA7CD91BAAE01A00B3A0B8 /* .gitignore */,
 				7FFA7CDB1BAC13DC00B3A0B8 /* .travis.yml */,
@@ -271,6 +274,7 @@
 				7F132F361B9ED2C5001A542A /* ViewController.swift in Sources */,
 				7F1B4CCA1B9ED5810090F05E /* MRZ.swift in Sources */,
 				7F1B4CC61B9ED5340090F05E /* MyScanViewController.swift in Sources */,
+				7F0791391E1E744000A015A7 /* main.m in Sources */,
 				7F132F341B9ED2C5001A542A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
