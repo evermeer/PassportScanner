@@ -13,7 +13,7 @@ import GPUImage //Still using this for the rotate
 import UIImage_Resize
 import AVFoundation
 
-public class PassportScannerController: UIViewController, G8TesseractDelegate {
+open class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     /// Set debug to true if you want to see what's happening
     public var debug = false
@@ -46,7 +46,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :returns: Returns .portrait
     */
-    override public var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         get { return .portrait }
     }
     /**
@@ -54,14 +54,14 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :returns: true to indicate the statusbar should be hidden
     */
-    override public var prefersStatusBarHidden: Bool {
+    override open var prefersStatusBarHidden: Bool {
         get { return true }
     }
     
     /**
     Initialize all graphic filters in the viewDidLoad
     */
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
 
@@ -77,7 +77,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
         crop.locationOfCropInPixels = Position(350, 60, nil)
         crop.overriddenOutputRotation = .rotateClockwise
 
-        // Try to dinamically optimize the exposure based on the average color
+        // Try to dynamically optimize the exposure based on the average color
         averageColor.extractedColorCallback = { color in
             let lighting = color.blueComponent + color.greenComponent + color.redComponent
             let currentExposure = self.exposure.exposure
@@ -120,7 +120,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
         self.tesseract.setVariableValue("FALSE", forKey: "wordrec_enable_assoc")
     }
 
-    public override func viewDidAppear(_ animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         do {
             // Initialize the camera
@@ -137,7 +137,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
         }
     }
     
-    public func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
+    open func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
         // sourceImage is the same image you sent to Tesseract above. 
         // Processing is already done in dynamic filters    
         return sourceImage
@@ -149,7 +149,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :param: sender The sender of this event
     */
-    @IBAction public func StartScan(sender: AnyObject) {
+    @IBAction open func StartScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.black
         camera.startCapture()
 
@@ -174,7 +174,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :param: sender the sender of this event
     */
-    @IBAction public func StopScan(sender: AnyObject) {
+    @IBAction open func StopScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.white
         camera.stopCapture()
         abbortScan()
@@ -187,7 +187,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
      - parameter sourceImage: The image that needs to be processed
      */
-    public func processImage(sourceImage: UIImage) -> Bool {
+    open func processImage(sourceImage: UIImage) -> Bool {
         // resize image. Smaller images are faster to process. When letters are too big the scan quality also goes down.
         let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
         
@@ -222,7 +222,7 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
      - returns: The OCR result
      */
-    public func doOCR(image: UIImage) -> String {
+    open func doOCR(image: UIImage) -> String {
         // Start OCR
         var result: String?
         self.tesseract.image = image
@@ -240,14 +240,14 @@ public class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :param: mrz The MRZ result
     */
-    public func succesfullScan(mrz: MRZ) {
+    open func succesfullScan(mrz: MRZ) {
         assertionFailure("You should overwrite this function to handle the scan results")
     }
 
     /**
     Override this function in your own class for processing a cancel
     */
-    public func abbortScan() {
+    open func abbortScan() {
         assertionFailure("You should overwrite this function to handle an aabbort")
     }
 

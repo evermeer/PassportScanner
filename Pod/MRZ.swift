@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MRZ: NSObject {
+open class MRZ: NSObject {
     // check data with http://en.wikipedia.org/wiki/Machine-readable_passport
 
     /// Was the last scan valid. A value of 1 is for when all validations are OK
@@ -56,7 +56,7 @@ public class MRZ: NSObject {
 
     :returns: Return all fields in a dictionary
     */
-    public func data() -> Dictionary<String, Any> {
+    open func data() -> Dictionary<String, Any> {
         return ["documentType": documentType, "documentSubType": documentSubType, "countryCode": countryCode, "lastName": lastName, "firstName": firstName, "passportNumber": passportNumber, "nationality": nationality, "dateOfBirth": MRZ.stringFromDate(dateOfBirth), "sex": sex, "expirationDate": MRZ.stringFromDate(expirationDate), "personalNumber": personalNumber]
     }
 
@@ -65,7 +65,7 @@ public class MRZ: NSObject {
 
     :returns: a string with all fields plus fieldname (each field on a new line)
     */
-    public override var description: String {
+    open override var description: String {
         get {
             return self.data().map {"\($0) = \($1)"}.reduce("") {"\($0)\n\($1)"}
         }

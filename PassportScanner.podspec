@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "PassportScanner"
-s.version      = "2.0.2"
+s.version      = "2.1.0"
 s.summary      = "Scan the MRZ code on a passport"
 
 s.description  = "Scan the MRZ code on a passport and it's data'"
