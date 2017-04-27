@@ -14,8 +14,8 @@ PassportScanner
 
 [![Git](https://img.shields.io/badge/GitHub-evermeer-blue.svg?style=flat)](https://github.com/evermeer)
 [![Twitter](https://img.shields.io/badge/twitter-@evermeer-blue.svg?style=flat)](http://twitter.com/evermeer)
-[![LinkedIn](https://img.shields.io/badge/linkedin-Edwin Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
-[![eMail](https://img.shields.io/badge/email-edwin@mirabeau.nl-blue.svg?style=flat)](mailto:edwin@mirabeau.nl?SUBJECT=About PassportScanner)
+[![LinkedIn](https://img.shields.io/badge/linkedin-Edwin%20Vermeer-blue.svg?style=flat)](http://nl.linkedin.com/in/evermeer/en)
+[![eMail](https://img.shields.io/badge/email-edwin@mirabeau.nl-blue.svg?style=flat)](mailto:edwin@mirabeau.nl?SUBJECT=About%20PassportScanner)
 
 ## Work on this branch:
 In this branch the GPUImage library is upgraded to GPUImage2. The current status is:
