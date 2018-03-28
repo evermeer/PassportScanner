@@ -60,13 +60,13 @@ PassportScanner is using the following components which can be installed using [
 ## Using PassportScanner in your own App 
 
 'PassportScanner' is now available through the dependency manager [CocoaPods](http://cocoapods.org). 
-You do have to use cocoapods version 0.36. At this moment this can be installed by executing:
+At this moment this can be installed by executing:
 
 ```
 [sudo] gem install cocoapods
 ```
 
-If you have installed cocoapods version 0.36 or later, then you can just add PassportScanner to your workspace by making sure the following lines are in your Podfile:
+If you have installed cocoapods you can just add PassportScanner to your workspace by making sure the following lines are in your Podfile:
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
@@ -75,7 +75,7 @@ use_frameworks!
 pod "PassportScanner"
 ```
 
-Version 0.36 of cocoapods will make a dynamic framework of all the pods that you use. Because of that it's only supported in iOS 8.0 or later. When using a framework, you also have to add an import at the top of your swift file like this:
+Add an import at the top of your swift file like this:
 
 ```
 import PassportScanner
