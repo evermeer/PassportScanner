@@ -3,6 +3,7 @@ podfile: Podfile
 osx_image: xcode8
 
 before_install:
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rvm get stable; fi
 - gem install cocoapods
 - export LANG=en_US.UTF-8
 - brew update
