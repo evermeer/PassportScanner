@@ -32,7 +32,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
     var highlightShadow = HighlightsAndShadows()
     var saturation = SaturationAdjustment()
     var contrast = ContrastAdjustment()
-    var adaptiveTreshold = AdaptiveThreshold()
+    var adaptiveThreshold = AdaptiveThreshold()
     var crop = Crop()
     var averageColor = AverageColorExtractor()
 
@@ -42,7 +42,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
     var tesseract: G8Tesseract = G8Tesseract(language: "eng")
 
     /**
-    Rotation is not needded.
+    Rotation is not needed.
 
     :returns: Returns .portrait
     */
@@ -81,7 +81,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         averageColor.extractedColorCallback = { color in
             let lighting = color.blueComponent + color.greenComponent + color.redComponent
             let currentExposure = self.exposure.exposure
-            // The stablil color is between 2.75 and 2.85. Otherwise change the exposure
+            // The stable color is between 2.75 and 2.85. Otherwise change the exposure
             if lighting < 2.75 {
                 self.exposure.exposure = currentExposure + (2.80 - lighting) * 2
             }
@@ -96,9 +96,9 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
             }
         }
 
-        // download traineddata to tessdata folder for language from:
+        // download trained data to tessdata folder for language from:
         // https://code.google.com/p/tesseract-ocr/downloads/list
-        // ocr traineddata is available in:    ;)
+        // ocr trained data is available in:    ;)
         // http://getandroidapp.org/applications/business/79952-nfc-passport-reader-2-0-8.html
         // optimisations created based on https://github.com/gali8/Tesseract-OCR-iOS/wiki/Tips-for-Improving-OCR-Results
         
@@ -124,7 +124,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         super.viewDidAppear(animated)
         do {
             // Initialize the camera
-            camera = try Camera(sessionPreset:AVCaptureSessionPreset1920x1080)
+            camera = try Camera(sessionPreset:AVCaptureSession.Preset.hd1920x1080.rawValue)
             camera.location = PhysicalCameraLocation.backFacing
             
             // Chain the filter to the render view
@@ -155,14 +155,13 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
             print("Start OCR")
-            
             self.pictureOutput = PictureOutput()
             self.pictureOutput.encodedImageFormat = .png
             self.pictureOutput.onlyCaptureNextFrame = true
             self.pictureOutput.imageAvailableCallback = { sourceImage in
                 if self.processImage(sourceImage: sourceImage) { return }
                 
-                // Not successfull, start another scan
+                // Not successful, start another scan
                 self.StartScan(sender: self)
             }
             self.crop --> self.pictureOutput
@@ -192,7 +191,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
         
         // rotate image. tesseract needs the correct orientation.
-        //let image: UIImage = croppedImage.rotate(by: -90)!
+        // let image: UIImage = croppedImage.rotate(by: -90)!
         // strange... this rotate will cause 1/2 the image to be skipped
         
         // Rotate cropped image
@@ -231,7 +230,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         result = self.tesseract.recognizedText
         //tesseract = nil
         G8Tesseract.clearCache()
-        print("Scanresult : \(result)")
+        print("Scan result : \(result)")
         return result ?? ""
     }
 
@@ -240,21 +239,22 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
 
     :param: mrz The MRZ result
     */
-    open func succesfullScan(mrz: MRZ) {
+    open func successfulScan(mrz: MRZ) {
         assertionFailure("You should overwrite this function to handle the scan results")
     }
 
     /**
     Override this function in your own class for processing a cancel
     */
-    open func abbortScan() {
-        assertionFailure("You should overwrite this function to handle an aabbort")
+    open func abortScan() {
+        assertionFailure("You should overwrite this function to handle an abort")
     }
-
 }
 
 
-// Wanted to use this rotation function. Tesseract does not like the result image. Went back to GpuImage for the rotation. Will try again later so that we can remove the old GpuImage dependency
+// Wanted to use this rotation function. Tesseract does not like the result image.
+// Went back to GpuImage for the rotation.
+// Will try again later so that we can remove the old GpuImage dependency
 @available(iOS 10.0, *)
 extension UIImage {
     func rotate(by degrees: Double) -> UIImage? {
@@ -265,6 +265,7 @@ extension UIImage {
         rect.origin = .zero
         
         let renderer = UIGraphicsImageRenderer(size: rect.size)
+
         return renderer.image { renderContext in
             renderContext.cgContext.translateBy(x: rect.midX, y: rect.midY)
             renderContext.cgContext.rotate(by: CGFloat(degrees * .pi / 180.0))
