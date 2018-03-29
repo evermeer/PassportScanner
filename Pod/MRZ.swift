@@ -47,7 +47,7 @@ open class MRZ: NSObject {
     public var personalNumber: String = ""
     /// start 43, len 1 - validating the personalNumber
     private var personalNumberIsValid = false
-    // start 44, len 1 - validating passport number, date of birth, expirationdate
+    // start 44, len 1 - validating passport number, date of birth, expiration date
     private var dataIsValid = false
 
 
@@ -57,13 +57,23 @@ open class MRZ: NSObject {
     :returns: Return all fields in a dictionary
     */
     open func data() -> Dictionary<String, Any> {
-        return ["documentType": documentType, "documentSubType": documentSubType, "countryCode": countryCode, "lastName": lastName, "firstName": firstName, "passportNumber": passportNumber, "nationality": nationality, "dateOfBirth": MRZ.stringFromDate(dateOfBirth), "sex": sex, "expirationDate": MRZ.stringFromDate(expirationDate), "personalNumber": personalNumber]
+        return ["documentType"    : documentType,
+                "documentSubType" : documentSubType,
+                "countryCode"     : countryCode,
+                "lastName"        : lastName,
+                "firstName"       : firstName,
+                "passportNumber"  : passportNumber,
+                "nationality"     : nationality,
+                "dateOfBirth"     : MRZ.stringFromDate(dateOfBirth),
+                "sex"             : sex,
+                "expirationDate"  : MRZ.stringFromDate(expirationDate),
+                "personalNumber"  : personalNumber]
     }
 
     /**
-    Get the discription of the MRZ
+    Get the description of the MRZ
 
-    :returns: a string with all fields plus fieldname (each field on a new line)
+    :returns: a string with all fields plus field name (each field on a new line)
     */
     open override var description: String {
         get {
@@ -92,25 +102,27 @@ open class MRZ: NSObject {
         }
         if longLines.count < 2 { return }
         if longLines.count == 2 {
-            process(l1: longLines[0].replace(target: " ", with: ""), l2: longLines[1].replace(target: " ", with: ""))
+            process(l1: longLines[0].replace(target: " ", with: ""),
+                    l2: longLines[1].replace(target: " ", with: ""))
         } else if longLines.last?.components(separatedBy: "<").count ?? 0 > 1 {
-            process(l1: longLines[longLines.count-2], l2: longLines[longLines.count-1])
+            process(l1: longLines[longLines.count-2],
+                    l2: longLines[longLines.count-1])
         } else {
-            process(l1: longLines[longLines.count-3].replace(target: " ", with: ""), l2: longLines[longLines.count-2].replace(target: " ", with: ""))
+            process(l1: longLines[longLines.count-3].replace(target: " ", with: ""),
+                    l2: longLines[longLines.count-2].replace(target: " ", with: ""))
         }
     }
 
     /**
     Do you want to see the progress in the log
 
-    :param: line The data that will be loged
+    :param: line The data that will be logged
     */
     fileprivate func debugLog(_ line: String) {
         if debug {
             print(line)
         }
     }
-
 
     /**
     Process the 2 MRZ lines
@@ -135,9 +147,9 @@ open class MRZ: NSObject {
         let name = line1.subString(5, to: 43).replace(target: "0", with: "O")
         var nameArray = name.components(separatedBy: "<<")
         lastName = nameArray[0].replace(target: "<", with: " ")
-        debugLog("Lastname : \(lastName)")
+        debugLog("Last name : \(lastName)")
         firstName = nameArray.count > 1 ? nameArray[1].replace(target: "<", with: " ") : ""
-        debugLog("Firstname : \(firstName)")
+        debugLog("First name : \(firstName)")
 
         // Line 2 parsing
         passportNumber = line2.subString(0, to: 1) + line2.subString(2, to: 8).toNumber()
@@ -189,7 +201,6 @@ open class MRZ: NSObject {
         documentSubType = documentSubType.replace(target: "<", with: "")
         personalNumber = personalNumber.replace(target: "<", with: "")
     }
-
 
     /**
     Cleanup a line of text
@@ -263,7 +274,11 @@ open class MRZ: NSObject {
     :returns: Returns true if the data was valid
     */
     fileprivate class func validate(_ data: String, check: String) -> Bool {
-        // The check digit calculation is as follows: each position is assigned a value; for the digits 0 to 9 this is the value of the digits, for the letters A to Z this is 10 to 35, for the filler < this is 0. The value of each position is then multiplied by its weight; the weight of the first position is 7, of the second it is 3, and of the third it is 1, and after that the weights repeat 7, 3, 1, etcetera. All values are added together and the remainder of the final value divided by 10 is the check digit.
+        // The check digit calculation is as follows: each position is assigned a value; for the digits 0 to 9 this is
+        // the value of the digits, for the letters A to Z this is 10 to 35, for the filler < this is 0. The value of
+        // each position is then multiplied by its weight; the weight of the first position is 7, of the second it is 3,
+        // and of the third it is 1, and after that the weights repeat 7, 3, 1, etcetera. All values are added together
+        // and the remainder of the final value divided by 10 is the check digit.
 
         //debugLog("Check '\(data)' for check '\(check)'")
         var i: Int = 1
@@ -297,6 +312,7 @@ open class MRZ: NSObject {
 
 
 extension String {
+
     /**
     Simple string extension for performing a replace
 
