@@ -1,12 +1,13 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-CLANG_CXX_LIBRARY = compiler-default
 CLANG_MODULES_AUTOLINK = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/EVGPUImage2" "$PODS_CONFIGURATION_BUILD_DIR/GPUImage" "$PODS_CONFIGURATION_BUILD_DIR/TesseractOCRiOS" "$PODS_CONFIGURATION_BUILD_DIR/UIImage-Resize"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/GPUImage" "${PODS_CONFIGURATION_BUILD_DIR}/ImageDetect" "${PODS_CONFIGURATION_BUILD_DIR}/SwiftOCR" "${PODS_CONFIGURATION_BUILD_DIR}/UIImage-Resize"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -iquote "$PODS_CONFIGURATION_BUILD_DIR/EVGPUImage2/EVGPUImage2.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/GPUImage/GPUImage.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/TesseractOCRiOS/TesseractOCR.framework/Headers" -iquote "$PODS_CONFIGURATION_BUILD_DIR/UIImage-Resize/UIImage_Resize.framework/Headers"
-OTHER_LDFLAGS = $(inherited) -ObjC -weak_library /usr/lib/libstdc++.6.0.9.dylib -l"stdc++" -framework "EVGPUImage2" -framework "GPUImage" -framework "TesseractOCR" -framework "UIImage_Resize"
-OTHER_SWIFT_FLAGS = $(inherited) -DGLES $(inherited) "-D" "COCOAPODS"
-PODS_BUILD_DIR = $BUILD_DIR
-PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+OTHER_CFLAGS = $(inherited) -iquote "${PODS_CONFIGURATION_BUILD_DIR}/GPUImage/GPUImage.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/ImageDetect/ImageDetect.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/SwiftOCR/SwiftOCR.framework/Headers" -iquote "${PODS_CONFIGURATION_BUILD_DIR}/UIImage-Resize/UIImage_Resize.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -framework "GPUImage" -framework "ImageDetect" -framework "SwiftOCR" -framework "UIImage_Resize"
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_BUILD_DIR = ${BUILD_DIR}
+PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
+PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
+SWIFT_VERSION = 3.0.1

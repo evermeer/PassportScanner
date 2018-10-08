@@ -1,21 +1,28 @@
 PODS:
-  - EVGPUImage2 (0.1.0)
   - GPUImage (0.1.7)
-  - TesseractOCRiOS (4.0.0)
+  - ImageDetect (1.1.2)
+  - SwiftOCR (1.1):
+    - GPUImage
   - UIImage-Resize (1.0.1)
 
 DEPENDENCIES:
-  - EVGPUImage2
-  - GPUImage
-  - TesseractOCRiOS
+  - ImageDetect
+  - SwiftOCR
   - UIImage-Resize
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - GPUImage
+    - ImageDetect
+    - SwiftOCR
+    - UIImage-Resize
+
 SPEC CHECKSUMS:
-  EVGPUImage2: 29221cf64d70ab9119dd48fc8898677b2af0c16e
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
-  TesseractOCRiOS: 90638afbe43d082433f2e76b384c7901d23956df
+  ImageDetect: 2c828415ff500d59375656dfa1a3399ad01e0d62
+  SwiftOCR: e1a5c7582f074b54df2b1ad273983088b3cf5d45
   UIImage-Resize: fa776860f10e6900bbaf53a73e494bdceaaccc77
 
-PODFILE CHECKSUM: f48ef451e07235bd5792d0355cd91040cfad2ca6
+PODFILE CHECKSUM: 08cfe731368c5b26fea0d4bcf36c061a0c2566f0
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.5.0

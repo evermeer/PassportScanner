@@ -1,12 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '11.0'
 use_frameworks!
 
 target 'PassportScanner' do
-   pod 'TesseractOCRiOS'
+   pod 'ImageDetect'
+   pod 'SwiftOCR'
    pod 'UIImage-Resize'
-   pod 'GPUImage'
-   pod 'EVGPUImage2'
 end
 
 post_install do |installer|
@@ -14,5 +13,5 @@ post_install do |installer|
         target.build_configurations.each do |config|
             config.build_settings['ENABLE_BITCODE'] = 'NO'
         end
-    end
+    end 
 end

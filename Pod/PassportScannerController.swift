@@ -5,6 +5,9 @@
 //  Copyright (c) 2015. All rights reserved.
 //
 
+import ImageDetect
+import SwiftOCR
+ 
 import Foundation
 import UIKit
 import TesseractOCR
@@ -41,6 +44,8 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
     /// The tesseract OCX engine
     var tesseract: G8Tesseract = G8Tesseract(language: "eng")
 
+    let swiftOCRInstance = SwiftOCR()
+    
     /**
     Rotation is not needded.
 
@@ -188,20 +193,35 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
      - parameter sourceImage: The image that needs to be processed
      */
     open func processImage(sourceImage: UIImage) -> Bool {
-        // resize image. Smaller images are faster to process. When letters are too big the scan quality also goes down.
-        let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
-        
-        // rotate image. tesseract needs the correct orientation.
-        //let image: UIImage = croppedImage.rotate(by: -90)!
-        // strange... this rotate will cause 1/2 the image to be skipped
         
         // Rotate cropped image
-        let selectedFilter = GPUImageTransformFilter()
-        selectedFilter.setInputRotation(kGPUImageRotateLeft, at: 0)
-        let image: UIImage = selectedFilter.image(byFilteringImage: croppedImage)
+        //let selectedFilter1 = GPUImageTransformFilter()
+        //selectedFilter1.setInputRotation(kGPUImageRotateLeft, at: 0)
+        //let si: UIImage = selectedFilter1.image(byFilteringImage: sourceImage)
+        let si: UIImage = sourceImage.rotate(by: -90)!
+        
+        si.detector.crop(type: .text) { [weak self] result in
+            switch result {
+            case .success(let croppedImages):
+                let lines: [String] = []
+                for image in croppedImages {
+                    swiftOCRInstance.recognize(image) { recognizedString in
+                        if recognizedString.length == 40 {
+                            lines.append(recognizedString)
+                        }
+                    }
+                }
+                print(lines)
+            case .notFound:
+                print("Not Found")
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
         
         // Perform the OCR scan
-        let result: String = self.doOCR(image: image)
+        let result: String = self.doOCR(image: si)
 
         // Create the MRZ object and validate if it's OK
         let mrz = MRZ(scan: result, debug: self.debug)
