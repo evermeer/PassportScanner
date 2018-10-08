@@ -10,6 +10,13 @@ DEPENDENCIES:
   - TesseractOCRiOS
   - UIImage-Resize
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - EVGPUImage2
+    - GPUImage
+    - TesseractOCRiOS
+    - UIImage-Resize
+
 SPEC CHECKSUMS:
   EVGPUImage2: 29221cf64d70ab9119dd48fc8898677b2af0c16e
   GPUImage: 733a5f0fab92df9de1c37ba9df520a833ccb406d
@@ -18,4 +25,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: f48ef451e07235bd5792d0355cd91040cfad2ca6
 
-COCOAPODS: 1.2.0.beta.3
+COCOAPODS: 1.6.0.beta.1

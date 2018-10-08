@@ -70,7 +70,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         highlightShadow.highlights  = 0.6 // 0 - 1
         saturation.saturation  = 0.6 // 0 - 2
         contrast.contrast = 2.0  // 0 - 4
-        adaptiveTreshold.blurRadiusInPixels = 8.0
+        adaptiveThreshold.blurRadiusInPixels = 8.0
 
         // Specify the crop region that will be used for the OCR
         crop.cropSizeInPixels = Size(width: 350, height: 1800)
@@ -124,14 +124,14 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         super.viewDidAppear(animated)
         do {
             // Initialize the camera
-            camera = try Camera(sessionPreset:AVCaptureSession.Preset.hd1920x1080.rawValue)
+            camera = try Camera(sessionPreset: AVCaptureSessionPreset1920x1080)
             camera.location = PhysicalCameraLocation.backFacing
             
             // Chain the filter to the render view
-            camera --> exposure  --> highlightShadow  --> saturation --> contrast --> adaptiveTreshold --> renderView
+            camera --> exposure  --> highlightShadow  --> saturation --> contrast --> adaptiveThreshold --> renderView
             
             // Use the same chained filters and forward these to 2 other filters
-            adaptiveTreshold --> crop --> averageColor
+            adaptiveThreshold --> crop --> averageColor
         } catch {
             fatalError("Could not initialize rendering pipeline: \(error)")
         }
@@ -176,7 +176,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
     @IBAction open func StopScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.white
         camera.stopCapture()
-        abbortScan()
+        abortScan()
     }
 
 
@@ -208,7 +208,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
             print("Scan quality insufficient : \(mrz.isValid)")
         } else {
             self.camera.stopCapture()
-            self.succesfullScan(mrz: mrz)
+            self.successfulScan(mrz: mrz)
             return true
         }
         return false

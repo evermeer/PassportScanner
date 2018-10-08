@@ -34,7 +34,7 @@ class MyScanViewController: PassportScannerController {
     
     :param: mrz The scanned MRZ
     */
-    override func succesfullScan(mrz: MRZ) {
+    override func successfulScan(mrz: MRZ) {
         print("mrz: {\(mrz.description)\n}")
         delegate?.processMRZ(mrz: mrz)
         self.dismiss(animated: true, completion: nil)
@@ -43,7 +43,7 @@ class MyScanViewController: PassportScannerController {
     /**
     Called by the PassportScannerController when the 'close' button was pressed.
     */
-    override func abbortScan() {
+    override func abortScan() {
         self.dismiss(animated: true, completion: nil)
     }
 
