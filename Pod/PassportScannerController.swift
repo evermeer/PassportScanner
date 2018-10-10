@@ -124,7 +124,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         super.viewDidAppear(animated)
         do {
             // Initialize the camera
-            camera = try Camera(sessionPreset: AVCaptureSessionPreset1920x1080)
+            camera = try Camera(sessionPreset: AVCaptureSession.Preset.hd1920x1080.rawValue)
             camera.location = PhysicalCameraLocation.backFacing
             
             // Chain the filter to the render view
