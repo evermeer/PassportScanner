@@ -176,7 +176,7 @@
 				TargetAttributes = {
 					7F132F2D1B9ED2C5001A542A = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 8829GZ84Q6;
+						DevelopmentTeam = 6Z7QY98HTS;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -242,14 +242,14 @@
 				"${PODS_ROOT}/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVGPUImage2/EVGPUImage2.framework",
 				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
-				"${BUILT_PRODUCTS_DIR}/TesseractOCRiOS/TesseractOCR.framework",
+				"${BUILT_PRODUCTS_DIR}/TesseractOCRSDKiOS/TesseractOCRSDKiOS.framework",
 				"${BUILT_PRODUCTS_DIR}/UIImage-Resize/UIImage_Resize.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EVGPUImage2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GPUImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCR.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TesseractOCRSDKiOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImage_Resize.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,7 +392,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 8829GZ84Q6;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -415,7 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 8829GZ84Q6;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

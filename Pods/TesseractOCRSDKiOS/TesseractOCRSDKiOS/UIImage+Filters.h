@@ -1,0 +1,35 @@
+//
+//  UIImage+MGFilters.h
+//  Tesseract OCR iOS
+//
+//  Created by Mister Grizzly on 2018.
+//  Copyright (c) 2018 Mister Grizzly - www.mistergrizzly.com. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+/**
+ *  Convenience methods for preprocessing images before performing recognition.
+ */
+@interface UIImage (Filters)
+
+/**
+ *  A convenience method for using CoreImage filters to preprocess an image by
+ *  1) setting the saturation to 0 to achieve grayscale, 2) increasing the 
+ *  contrast by 10% to make black parts blacker, and 3) reducing the exposure 
+ *  by 30% to reduce the amount of "light" in the image.
+ *
+ *  @return The filtered image.
+ */
+- (UIImage *)MG_blackAndWhite __attribute__((deprecated("This method is no longer supported as a part of Tesseract-OCR-iOS")));
+
+/**
+ *  A convenience method for converting an image to grayscale by manually
+ *  iterating over each of the pixels in the image and applying the following
+ *  formula to each pixel: http://en.wikipedia.org/wiki/Grayscale#Converting_color_to_grayscale
+ *
+ *  @return The grayscale image.
+ */
+- (UIImage *)MG_grayScale  __attribute__((deprecated("This method is no longer supported as a part of Tesseract-OCR-iOS")));
+
+@end

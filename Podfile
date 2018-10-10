@@ -3,7 +3,7 @@ platform :ios, '8.0'
 use_frameworks!
 
 target 'PassportScanner' do
-   pod 'TesseractOCRiOS'
+   pod 'TesseractOCRSDKiOS'
    pod 'UIImage-Resize'
    pod 'GPUImage'
    pod 'EVGPUImage2'

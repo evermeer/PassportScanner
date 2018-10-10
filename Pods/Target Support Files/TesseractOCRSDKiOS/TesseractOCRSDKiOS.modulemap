@@ -1,0 +1,6 @@
+framework module TesseractOCRSDKiOS {
+  umbrella header "TesseractOCRSDKiOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

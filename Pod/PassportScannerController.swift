@@ -7,13 +7,13 @@
 
 import Foundation
 import UIKit
-import TesseractOCR
+import TesseractOCRSDKiOS
 import EVGPUImage2
 import GPUImage //Still using this for the rotate
 import UIImage_Resize
 import AVFoundation
 
-open class PassportScannerController: UIViewController, G8TesseractDelegate {
+open class PassportScannerController: UIViewController, MGTesseractDelegate {
 
     /// Set debug to true if you want to see what's happening
     public var debug = false
@@ -39,7 +39,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
     var pictureOutput = PictureOutput()
 
     /// The tesseract OCX engine
-    var tesseract: G8Tesseract = G8Tesseract(language: "eng")
+    var tesseract: MGTesseract = MGTesseract(language: "eng")
 
     /**
     Rotation is not needed.
@@ -137,7 +137,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         }
     }
     
-    open func preprocessedImage(for tesseract: G8Tesseract!, sourceImage: UIImage!) -> UIImage! {
+    open func preprocessedImage(for tesseract: MGTesseract!, sourceImage: UIImage!) -> UIImage! {
         // sourceImage is the same image you sent to Tesseract above. 
         // Processing is already done in dynamic filters    
         return sourceImage
@@ -229,7 +229,7 @@ open class PassportScannerController: UIViewController, G8TesseractDelegate {
         self.tesseract.recognize()
         result = self.tesseract.recognizedText
         //tesseract = nil
-        G8Tesseract.clearCache()
+        MGTesseract.clearCache()
         print("Scan result : \(result)")
         return result ?? ""
     }
