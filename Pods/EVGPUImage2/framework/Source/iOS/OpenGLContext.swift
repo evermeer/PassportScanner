@@ -9,7 +9,9 @@ public class OpenGLContext: SerialDispatch {
         return FramebufferCache(context:self)
     }()
     var shaderCache:[String:ShaderProgram] = [:]
-    
+    public let standardImageVBO:GLuint
+    var textureVBOs:[Rotation:GLuint] = [:]
+
     let context:EAGLContext
     
     lazy var passthroughShader:ShaderProgram = {
@@ -32,13 +34,23 @@ public class OpenGLContext: SerialDispatch {
     init() {
         serialDispatchQueue.setSpecific(key:dispatchQueueKey, value:81)
         
-        guard let generatedContext = EAGLContext(api:.openGLES2, sharegroup:imageProcessingShareGroup) else {
+        let generatedContext:EAGLContext?
+        if let shareGroup = imageProcessingShareGroup {
+            generatedContext = EAGLContext(api:.openGLES2, sharegroup:shareGroup)
+        } else {
+            generatedContext = EAGLContext(api:.openGLES2)
+        }
+        
+        guard let concreteGeneratedContext = generatedContext else {
             fatalError("Unable to create an OpenGL ES 2.0 context. The GPUImage framework requires OpenGL ES 2.0 support to work.")
         }
         
-        self.context = generatedContext
-        self.makeCurrentContext()
+        self.context = concreteGeneratedContext
+        EAGLContext.setCurrent(concreteGeneratedContext)
         
+        standardImageVBO = generateVBO(for:standardImageVertices)
+        generateTextureVBOs()
+
         glDisable(GLenum(GL_DEPTH_TEST))
         glEnable(GLenum(GL_TEXTURE_2D))
     }
@@ -62,7 +74,7 @@ public class OpenGLContext: SerialDispatch {
     // MARK: Device capabilities
     
     func supportsTextureCaches() -> Bool {
-#if (arch(i386) || arch(x86_64)) && os(iOS)
+#if targetEnvironment(simulator)
         return false // Simulator glitches out on use of texture caches
 #else
         return true // Every iOS version and device that can run Swift can handle texture caches

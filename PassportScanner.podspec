@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
 #
 
 s.name         = "PassportScanner"
-s.version      = "3.0.1"
+s.version      = "3.0.2"
 s.summary      = "Scan the MRZ code on a passport"
 
 s.description  = "Scan the MRZ code on a passport and it's data'"
@@ -47,6 +47,13 @@ s.social_media_url   = "http://twitter.com/evermeer"
 #
 
 s.platform     = :ios, "8.0"
+
+# ――― Swift version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+#
+
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
+s.swift_version = '4.2'
+
 
 # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
 #

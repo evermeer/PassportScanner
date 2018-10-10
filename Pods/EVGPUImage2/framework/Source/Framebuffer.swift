@@ -46,10 +46,10 @@ public class Framebuffer {
     public var timingStyle:FramebufferTimingStyle = .stillImage
     public var orientation:ImageOrientation
 
-    let texture:GLuint
+    public let texture:GLuint
     let framebuffer:GLuint?
     let stencilBuffer:GLuint?
-    let size:GLSize
+    public let size:GLSize
     let internalFormat:Int32
     let format:Int32
     let type:Int32
@@ -57,7 +57,10 @@ public class Framebuffer {
     let hash:Int64
     let textureOverride:Bool
     
+    weak var context:OpenGLContext?
+    
     public init(context:OpenGLContext, orientation:ImageOrientation, size:GLSize, textureOnly:Bool = false, minFilter:Int32 = GL_LINEAR, magFilter:Int32 = GL_LINEAR, wrapS:Int32 = GL_CLAMP_TO_EDGE, wrapT:Int32 = GL_CLAMP_TO_EDGE, internalFormat:Int32 = GL_RGBA, format:Int32 = GL_BGRA, type:Int32 = GL_UNSIGNED_BYTE, stencil:Bool = false, overriddenTexture:GLuint? = nil) throws {
+        self.context = context
         self.size = size
         self.orientation = orientation
         self.internalFormat = internalFormat
@@ -124,7 +127,7 @@ public class Framebuffer {
         }
     }
 
-    func texelSize(for rotation:Rotation) -> Size {
+    public func texelSize(for rotation:Rotation) -> Size {
         if rotation.flipsDimensions() {
             return Size(width:1.0 / Float(size.height), height:1.0 / Float(size.width))
         } else {
@@ -140,11 +143,11 @@ public class Framebuffer {
         }
     }
 
-    func texturePropertiesForOutputRotation(_ rotation:Rotation) -> InputTextureProperties {
-        return InputTextureProperties(textureCoordinates:rotation.textureCoordinates(), texture:texture)
+    public func texturePropertiesForOutputRotation(_ rotation:Rotation) -> InputTextureProperties {
+        return InputTextureProperties(textureVBO:context!.textureVBO(for:rotation), texture:texture)
     }
 
-    func texturePropertiesForTargetOrientation(_ targetOrientation:ImageOrientation) -> InputTextureProperties {
+    public func texturePropertiesForTargetOrientation(_ targetOrientation:ImageOrientation) -> InputTextureProperties {
         return texturePropertiesForOutputRotation(self.orientation.rotationNeededForOrientation(targetOrientation))
     }
     
@@ -159,7 +162,7 @@ public class Framebuffer {
 
     weak var cache:FramebufferCache?
     var framebufferRetainCount = 0
-    func lock() {
+    public func lock() {
         framebufferRetainCount += 1
     }
 
@@ -167,7 +170,7 @@ public class Framebuffer {
         framebufferRetainCount = 0
     }
     
-    func unlock() {
+    public func unlock() {
         framebufferRetainCount -= 1
         if (framebufferRetainCount < 1) {
             if ((framebufferRetainCount < 0) && (cache != nil)) {

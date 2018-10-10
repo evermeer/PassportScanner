@@ -11,6 +11,8 @@ public class PictureOutput: ImageConsumer {
     public var encodedImageFormat:PictureFileFormat = .png
     public var imageAvailableCallback:((UIImage) -> ())?
     public var onlyCaptureNextFrame:Bool = true
+    public var keepImageAroundForSynchronousCapture:Bool = false
+    var storedFramebuffer:Framebuffer?
     
     public let sources = SourceContainer()
     public let maximumInputs:UInt = 1
@@ -42,7 +44,7 @@ public class PictureOutput: ImageConsumer {
         renderFramebuffer.lock()
         renderFramebuffer.activateFramebufferForRendering()
         clearFramebufferWithColor(Color.red)
-        renderQuadWithShader(sharedImageProcessingContext.passthroughShader, uniformSettings:ShaderUniformSettings(), vertices:standardImageVertices, inputTextures:[framebuffer.texturePropertiesForOutputRotation(.noRotation)])
+        renderQuadWithShader(sharedImageProcessingContext.passthroughShader, uniformSettings:ShaderUniformSettings(), vertexBufferObject:sharedImageProcessingContext.standardImageVBO, inputTextures:[framebuffer.texturePropertiesForOutputRotation(.noRotation)])
         framebuffer.unlock()
         
         let imageByteSize = Int(framebuffer.size.width * framebuffer.size.height * 4)
@@ -55,6 +57,11 @@ public class PictureOutput: ImageConsumer {
     }
     
     public func newFramebufferAvailable(_ framebuffer:Framebuffer, fromSourceIndex:UInt) {
+        if keepImageAroundForSynchronousCapture {
+            storedFramebuffer?.unlock()
+            storedFramebuffer = framebuffer
+        }
+        
         if let imageCallback = imageAvailableCallback {
             let cgImageFromBytes = cgImageFromFramebuffer(framebuffer)
             
@@ -83,6 +90,18 @@ public class PictureOutput: ImageConsumer {
                 encodedImageAvailableCallback = nil
             }
         }
+    }
+    
+    public func synchronousImageCapture() -> UIImage {
+        var outputImage:UIImage!
+        sharedImageProcessingContext.runOperationSynchronously{
+            guard let currentFramebuffer = storedFramebuffer else { fatalError("Synchronous access requires keepImageAroundForSynchronousCapture to be set to true") }
+            
+            let cgImageFromBytes = cgImageFromFramebuffer(currentFramebuffer)
+            outputImage = UIImage(cgImage:cgImageFromBytes, scale:1.0, orientation:.up)
+        }
+        
+        return outputImage
     }
 }
 
@@ -117,5 +136,5 @@ public extension UIImage {
 
 // Why are these flipped in the callback definition?
 func dataProviderReleaseCallback(_ context:UnsafeMutableRawPointer?, data:UnsafeRawPointer, size:Int) {
-    data.deallocate(bytes:size, alignedTo:1)
+    data.deallocate()
 }

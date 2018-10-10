@@ -3994,9 +3994,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		208AD03FD8E7F3CADA30DE6048A88026 /* Release */ = {
+		042C79C02A283B903420B677F81EDABE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 03799F378F027B66A0BD31F381CB0CAE /* TesseractOCRSDKiOS.xcconfig */;
+			baseConfigurationReference = EAA66A8CD290B0078229A50DFB60C438 /* UIImage-Resize.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -4008,18 +4008,18 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/UIImage-Resize/UIImage-Resize-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS.modulemap";
-				PRODUCT_MODULE_NAME = TesseractOCRSDKiOS;
-				PRODUCT_NAME = TesseractOCRSDKiOS;
+				MODULEMAP_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize.modulemap";
+				PRODUCT_MODULE_NAME = UIImage_Resize;
+				PRODUCT_NAME = UIImage_Resize;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4027,40 +4027,7 @@
 			};
 			name = Release;
 		};
-		54C0A1EAAB88B3F32467C14DDD9FBAA3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 31AAEB58BC9FEB1BB1923C383146B4C0 /* EVGPUImage2.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/EVGPUImage2/EVGPUImage2-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/EVGPUImage2/EVGPUImage2-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/EVGPUImage2/EVGPUImage2.modulemap";
-				PRODUCT_MODULE_NAME = EVGPUImage2;
-				PRODUCT_NAME = EVGPUImage2;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		63D7D07F292BE73705F65DBE43D6E24F /* Debug */ = {
+		240512FED335B76AE805EDC036382511 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 03799F378F027B66A0BD31F381CB0CAE /* TesseractOCRSDKiOS.xcconfig */;
 			buildSettings = {
@@ -4085,14 +4052,15 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		86F0E374B29CA07EB94CEE88C655BCB4 /* Debug */ = {
+		3BECEC285A77442482CCE6D4A0769F5C /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85FD410EC85BE7CBDB3067BD36F72C85 /* GPUImage.xcconfig */;
 			buildSettings = {
@@ -4117,14 +4085,15 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		8E145C9326F0CC6335BC008C55D03C5A /* Release */ = {
+		72DAB4AB76E0A756DD63D422E486C36E /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 31AAEB58BC9FEB1BB1923C383146B4C0 /* EVGPUImage2.xcconfig */;
 			buildSettings = {
@@ -4151,40 +4120,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		95697F1EFC6B8DC67544D695C8E01256 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85FD410EC85BE7CBDB3067BD36F72C85 /* GPUImage.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/GPUImage/GPUImage-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/GPUImage/GPUImage-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/GPUImage/GPUImage.modulemap";
-				PRODUCT_MODULE_NAME = GPUImage;
-				PRODUCT_NAME = GPUImage;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -4251,9 +4187,9 @@
 			};
 			name = Release;
 		};
-		A98F592452962B776363E9008CE7B311 /* Release */ = {
+		AA36ADC71AC2E9ACBE6DA3A329958ECA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAA66A8CD290B0078229A50DFB60C438 /* UIImage-Resize.xcconfig */;
+			baseConfigurationReference = 03799F378F027B66A0BD31F381CB0CAE /* TesseractOCRSDKiOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -4265,24 +4201,88 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/UIImage-Resize/UIImage-Resize-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize.modulemap";
-				PRODUCT_MODULE_NAME = UIImage_Resize;
-				PRODUCT_NAME = UIImage_Resize;
+				MODULEMAP_FILE = "Target Support Files/TesseractOCRSDKiOS/TesseractOCRSDKiOS.modulemap";
+				PRODUCT_MODULE_NAME = TesseractOCRSDKiOS;
+				PRODUCT_NAME = TesseractOCRSDKiOS;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
+		};
+		AA8C48C753B8993D028225C1611FD138 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31AAEB58BC9FEB1BB1923C383146B4C0 /* EVGPUImage2.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/EVGPUImage2/EVGPUImage2-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/EVGPUImage2/EVGPUImage2-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/EVGPUImage2/EVGPUImage2.modulemap";
+				PRODUCT_MODULE_NAME = EVGPUImage2;
+				PRODUCT_NAME = EVGPUImage2;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		BD1792A3522F17D96DB87EF4168BA310 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85FD410EC85BE7CBDB3067BD36F72C85 /* GPUImage.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/GPUImage/GPUImage-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/GPUImage/GPUImage-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/GPUImage/GPUImage.modulemap";
+				PRODUCT_MODULE_NAME = GPUImage;
+				PRODUCT_NAME = GPUImage;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		D11C82AF2204B41B80412B8DC9C1D652 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -4384,6 +4384,38 @@
 			};
 			name = Debug;
 		};
+		EFDAF7846DA50F78BFBEF543F54AC229 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAA66A8CD290B0078229A50DFB60C438 /* UIImage-Resize.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/UIImage-Resize/UIImage-Resize-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize.modulemap";
+				PRODUCT_MODULE_NAME = UIImage_Resize;
+				PRODUCT_NAME = UIImage_Resize;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		F03398E635D957EFB36135A795116A11 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 810FA3E56E4A0DB8374DDF14501B91F1 /* Pods-PassportScanner.release.xcconfig */;
@@ -4421,46 +4453,14 @@
 			};
 			name = Release;
 		};
-		F8A2825DCBDCC6802E74F7575D6792B9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EAA66A8CD290B0078229A50DFB60C438 /* UIImage-Resize.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_BITCODE = NO;
-				GCC_PREFIX_HEADER = "Target Support Files/UIImage-Resize/UIImage-Resize-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/UIImage-Resize/UIImage-Resize.modulemap";
-				PRODUCT_MODULE_NAME = UIImage_Resize;
-				PRODUCT_NAME = UIImage_Resize;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		280000241DE2949BD4EEF586A8B2847D /* Build configuration list for PBXNativeTarget "UIImage-Resize" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F8A2825DCBDCC6802E74F7575D6792B9 /* Debug */,
-				A98F592452962B776363E9008CE7B311 /* Release */,
+				EFDAF7846DA50F78BFBEF543F54AC229 /* Debug */,
+				042C79C02A283B903420B677F81EDABE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4477,8 +4477,8 @@
 		67861A80086EF725083D1D63EA3B5CA0 /* Build configuration list for PBXNativeTarget "TesseractOCRSDKiOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				63D7D07F292BE73705F65DBE43D6E24F /* Debug */,
-				208AD03FD8E7F3CADA30DE6048A88026 /* Release */,
+				AA36ADC71AC2E9ACBE6DA3A329958ECA /* Debug */,
+				240512FED335B76AE805EDC036382511 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4495,8 +4495,8 @@
 		9028F516F039B16BC22E8E00BE0F1C9B /* Build configuration list for PBXNativeTarget "EVGPUImage2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				54C0A1EAAB88B3F32467C14DDD9FBAA3 /* Debug */,
-				8E145C9326F0CC6335BC008C55D03C5A /* Release */,
+				AA8C48C753B8993D028225C1611FD138 /* Debug */,
+				72DAB4AB76E0A756DD63D422E486C36E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -4504,8 +4504,8 @@
 		F36B3DA50117E7424856AE3860FA2A71 /* Build configuration list for PBXNativeTarget "GPUImage" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				86F0E374B29CA07EB94CEE88C655BCB4 /* Debug */,
-				95697F1EFC6B8DC67544D695C8E01256 /* Release */,
+				BD1792A3522F17D96DB87EF4168BA310 /* Debug */,
+				3BECEC285A77442482CCE6D4A0769F5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

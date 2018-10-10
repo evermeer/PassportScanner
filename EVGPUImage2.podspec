@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name     = 'EVGPUImage2'
-s.version  = '0.1.0'
+s.version  = '0.2.0'
 s.license  = 'BSD'
 s.summary  = 'An open source iOS framework for GPU-based image and video processing.'
 s.homepage = 'https://github.com/BradLarson/GPUImage2'
@@ -14,6 +14,8 @@ s.xcconfig = { 'CLANG_MODULES_AUTOLINK' => 'YES',
 'OTHER_SWIFT_FLAGS' => "$(inherited) -DGLES"}
 
 s.ios.deployment_target = '8.0'
+s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+s.swift_version = '4.0'
 s.ios.exclude_files = 'framework/Source/Mac', 'framework/Source/Linux', 'framework/Source/Operations/Shaders/ConvertedShaders_GL.swift'
 s.frameworks   = ['OpenGLES', 'CoreMedia', 'QuartzCore', 'AVFoundation']
 end
