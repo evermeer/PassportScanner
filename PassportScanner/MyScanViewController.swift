@@ -9,7 +9,7 @@
 import Foundation
 
 protocol ProcessMRZ {
-    func processMRZ(mrz:MRZ)
+    func processMRZ(mrz:MRZParser)
 }
 
 class MyScanViewController: PassportScannerController {
@@ -18,6 +18,15 @@ class MyScanViewController: PassportScannerController {
     var delegate: ProcessMRZ?
     
     // the .StartScan and .EndScan are IBOutlets and can be linked to your own buttons
+    
+    
+    override func viewDidLoad() {
+        //These variables must be setted before the viewDidAppear
+        self.usePostProcessingFilters = true
+        self.mrzType = MRZType.Auto
+        super.viewDidLoad();
+    }
+    
     
     /**
     For now just start scanning the moment this view is loaded
@@ -34,7 +43,7 @@ class MyScanViewController: PassportScannerController {
     
     :param: mrz The scanned MRZ
     */
-    override func successfulScan(mrz: MRZ) {
+    override func successfulScan(mrz: MRZParser) {
         print("mrz: {\(mrz.description)\n}")
         delegate?.processMRZ(mrz: mrz)
         self.dismiss(animated: true, completion: nil)
