@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class MRZD3: MRZParser {
+open class MRZTD3: MRZParser {
     // check data with http://en.wikipedia.org/wiki/Machine-readable_passport
     
     /// Was the last scan valid. A value of 1 is for when all validations are OK
@@ -65,9 +65,9 @@ open class MRZD3: MRZParser {
                 "firstName"       : firstName,
                 "passportNumber"  : passportNumber,
                 "nationality"     : nationality,
-                "dateOfBirth"     : MRZD3.stringFromDate(dateOfBirth),
+                "dateOfBirth"     : MRZTD3.stringFromDate(dateOfBirth),
                 "sex"             : sex,
-                "expirationDate"  : MRZD3.stringFromDate(expirationDate),
+                "expirationDate"  : MRZTD3.stringFromDate(expirationDate),
                 "personalNumber"  : personalNumber]
     }
     
@@ -136,8 +136,8 @@ open class MRZD3: MRZParser {
      */
     fileprivate func process(l1: String, l2: String) {
         
-        let line1 = MRZD3.cleanup(line: l1)
-        let line2 = MRZD3.cleanup(line: l2)
+        let line1 = MRZTD3.cleanup(line: l1)
+        let line2 = MRZTD3.cleanup(line: l2)
         
         debugLog("Processing line 1 : \(line1)")
         debugLog("Processing line 2 : \(line2)")
@@ -163,12 +163,12 @@ open class MRZD3: MRZParser {
         debugLog("nationality : \(nationality)")
         let birth = line2.subString(13, to: 18).toNumber()
         let birthValidation = line2.subString(19, to: 19).toNumber()
-        dateOfBirth = MRZD3.dateFromString(birth)
+        dateOfBirth = MRZTD3.dateFromString(birth)
         debugLog("date of birth : \(dateOfBirth)")
         sex = line2.subString(20, to: 20)
         debugLog("sex : \(sex)")
         let expiration = line2.subString(21, to: 26).toNumber()
-        expirationDate = MRZD3.dateFromString(expiration)
+        expirationDate = MRZTD3.dateFromString(expiration)
         debugLog("date of expiration : \(expirationDate)")
         let expirationValidation = line2.subString(27, to: 27).toNumber()
         personalNumber =  line2.subString(28, to: 41).toNumber()
@@ -179,23 +179,23 @@ open class MRZD3: MRZParser {
         
         // Validation
         _isValid = 1
-        passportNumberIsValid = MRZD3.validate(passportNumber, check: passportNumberCheck)
+        passportNumberIsValid = MRZTD3.validate(passportNumber, check: passportNumberCheck)
         if !passportNumberIsValid {
             print("--> PassportNumber is invalid")
         }
         _isValid = _isValid * (passportNumberIsValid ? 1 : 0.9)
-        dateOfBirthIsValid = MRZD3.validate(birth, check: birthValidation)
+        dateOfBirthIsValid = MRZTD3.validate(birth, check: birthValidation)
         if !dateOfBirthIsValid {
             print("--> DateOfBirth is invalid")
         }
         _isValid = _isValid * (dateOfBirthIsValid ? 1 : 0.9)
-        _isValid = _isValid * (MRZD3.validate(expiration, check: expirationValidation) ? 1 : 0.9)
-        personalNumberIsValid = MRZD3.validate(personalNumber, check: personalNumberValidation)
+        _isValid = _isValid * (MRZTD3.validate(expiration, check: expirationValidation) ? 1 : 0.9)
+        personalNumberIsValid = MRZTD3.validate(personalNumber, check: personalNumberValidation)
         if !personalNumberIsValid {
             print("--> PersonalNumber is invalid")
         }
         _isValid = _isValid * (personalNumberIsValid ? 1 : 0.9)
-        dataIsValid = MRZD3.validate(data, check: dataValidation)
+        dataIsValid = MRZTD3.validate(data, check: dataValidation)
         if !dataIsValid {
             print("--> Date is invalid")
         }

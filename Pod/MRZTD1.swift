@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class MRZD1: MRZParser {
+open class MRZTD1: MRZParser {
     // check data with https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
     
     /// Was the last scan valid. A value of 1 is for when all validations are OK
@@ -64,9 +64,9 @@ open class MRZD1: MRZParser {
                 "documentSubType" : documentSubType,
                 "countryCode"     : countryCode,
                 "passportNumber"  : passportNumber,
-                "dateOfBirth"     : MRZD1.stringFromDate(dateOfBirth),
+                "dateOfBirth"     : MRZTD1.stringFromDate(dateOfBirth),
                 "sex"             : sex,
-                "expirationDate"  : MRZD1.stringFromDate(expirationDate),
+                "expirationDate"  : MRZTD1.stringFromDate(expirationDate),
                 "nationality"     : nationality,
                 "lastName"        : lastName,
                 "firstName"       : firstName]
@@ -117,9 +117,9 @@ open class MRZD1: MRZParser {
         if longLines.count < 3 { return }
         if longLines.count > 3 { return }
         
-        let line1: String = MRZD1.cleanup(line: longLines[0])
-        let line2: String = MRZD1.cleanup(line: longLines[1])
-        let line3: String = MRZD1.cleanup(line: longLines[2])
+        let line1: String = MRZTD1.cleanup(line: longLines[0])
+        let line2: String = MRZTD1.cleanup(line: longLines[1])
+        let line3: String = MRZTD1.cleanup(line: longLines[2])
 
         if(line1.count + line2.count + line3.count == 90){
             process(l1: line1,
@@ -178,12 +178,12 @@ open class MRZD1: MRZParser {
         // Line 2 parsing
         let birth = line2.subString(0, to: 5).toNumber()
         let birthValidation = line2.subString(6, to: 6).toNumber()
-        dateOfBirth = MRZD1.dateFromString(birth)
+        dateOfBirth = MRZTD1.dateFromString(birth)
         debugLog("date of birth : \(dateOfBirth)")
         sex = line2.subString(7, to: 7)
         debugLog("sex : \(sex)")
         let expiration = line2.subString(8, to: 13).toNumber()
-        expirationDate = MRZD1.dateFromString(expiration)
+        expirationDate = MRZTD1.dateFromString(expiration)
         debugLog("date of expiration : \(expirationDate)")
         let expirationValidation = line2.subString(14, to: 14).toNumber()
         nationality = line2.subString(15, to: 17).replace(target: "<", with: " ")
@@ -206,19 +206,19 @@ open class MRZD1: MRZParser {
         
         // Validation
         _isValid = 1
-        passportNumberIsValid = MRZD1.validate(passportNumber, check: passportNumberCheck)
+        passportNumberIsValid = MRZTD1.validate(passportNumber, check: passportNumberCheck)
         if !passportNumberIsValid {
             print("--> PassportNumber is invalid")
         }
         _isValid = _isValid * (passportNumberIsValid ? 1 : 0.9)
-        dateOfBirthIsValid = MRZD1.validate(birth, check: birthValidation)
+        dateOfBirthIsValid = MRZTD1.validate(birth, check: birthValidation)
         if !dateOfBirthIsValid {
             print("--> DateOfBirth is invalid")
         }
         _isValid = _isValid * (dateOfBirthIsValid ? 1 : 0.9)
-        _isValid = _isValid * (MRZD1.validate(expiration, check: expirationValidation) ? 1 : 0.9)
+        _isValid = _isValid * (MRZTD1.validate(expiration, check: expirationValidation) ? 1 : 0.9)
         
-        dataIsValid = MRZD1.validate(data, check: dataValidation)
+        dataIsValid = MRZTD1.validate(data, check: dataValidation)
         if !dataIsValid {
             print("--> Date is invalid")
         }

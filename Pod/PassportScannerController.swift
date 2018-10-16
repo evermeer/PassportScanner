@@ -16,9 +16,9 @@ import AVFoundation
 // based to https://www.icao.int/publications/pages/publication.aspx?docnum=9303
 public enum MRZType {
     case Auto
-    case D1 // 3 lines - 30 chars per line
-    //case D2 // to be implemented
-    case D3 // 2 lines - 44 chars per line
+    case TD1 // 3 lines - 30 chars per line
+    //case TD2 // to be implemented
+    case TD3 // 2 lines - 44 chars per line
 }
 
 open class PassportScannerController: UIViewController, MGTesseractDelegate {
@@ -317,14 +317,14 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         var mrz: MRZParser
         
         if(mrzType == MRZType.Auto){
-            mrz = MRZD1(scan: result, debug: self.debug)
+            mrz = MRZTD1(scan: result, debug: self.debug)
             if  mrz.isValid() < self.accuracy {
-                mrz = MRZD3(scan: result, debug: self.debug)
+                mrz = MRZTD3(scan: result, debug: self.debug)
             }
-        }else if(mrzType == MRZType.D1){
-            mrz = MRZD1(scan: result, debug: self.debug)
+        }else if(mrzType == MRZType.TD1){
+            mrz = MRZTD1(scan: result, debug: self.debug)
         }else{
-            mrz = MRZD3(scan: result, debug: self.debug)
+            mrz = MRZTD3(scan: result, debug: self.debug)
         }
         
         if  mrz.isValid() < self.accuracy {
