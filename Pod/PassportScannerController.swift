@@ -15,10 +15,10 @@ import AVFoundation
 
 // based to https://www.icao.int/publications/pages/publication.aspx?docnum=9303
 public enum MRZType {
-    case Auto
-    case TD1 // 3 lines - 30 chars per line
+    case auto
+    case td1 // 3 lines - 30 chars per line
     //case TD2 // to be implemented
-    case TD3 // 2 lines - 44 chars per line
+    case td3 // 2 lines - 44 chars per line
 }
 
 open class PassportScannerController: UIViewController, MGTesseractDelegate {
@@ -29,11 +29,11 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     /// Set accuracy that is required for the scan. 1 = all checksums should be ok
     public var accuracy: Float = 1
     
-    /// Apply filters in post processing, instead of in camera preview
-    public var usePostProcessingFilters = false
+    /// If false then apply filters in post processing, otherwise instead of in camera preview
+    public var showPostProcessingFilters = true
     
     // The parsing to be applied
-    public var mrzType: MRZType = MRZType.Auto
+    public var mrzType: MRZType = MRZType.auto
     
     /// When you create your own view, then make sure you have a GPUImageView that is linked to this
     @IBOutlet var renderView: RenderView!
@@ -98,7 +98,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         crop.locationOfCropInPixels = Position(350, 60, nil)
         crop.overriddenOutputRotation = .rotateClockwise
         
-        if(usePostProcessingFilters) {
+        if !showPostProcessingFilters {
             exposureFilter.exposure = CGFloat(self.defaultExposure)
             highlightShadowFilter.highlights = 0.8
             saturationFilter.saturation = 0.6
@@ -176,7 +176,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             camera = try Camera(sessionPreset: AVCaptureSession.Preset.hd1920x1080)
             camera.location = PhysicalCameraLocation.backFacing
             
-            if usePostProcessingFilters {
+            if !showPostProcessingFilters {
                 // Apply only the cropping
                 camera --> renderView
                 camera --> crop
@@ -226,7 +226,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     open func preprocessedImage(for tesseract: MGTesseract!, sourceImage: UIImage!) -> UIImage! {
         // sourceImage is the same image you sent to Tesseract above.
         // Processing is already done in dynamic filters
-        if !usePostProcessingFilters { return sourceImage }
+        if showPostProcessingFilters { return sourceImage }
 
         var filterImage: UIImage = sourceImage
         exposureFilter.exposure = self.lastExposure
@@ -303,12 +303,12 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         // Create the MRZ object and validate if it's OK
         var mrz: MRZParser
         
-        if mrzType == MRZType.Auto {
+        if mrzType == MRZType.auto {
             mrz = MRZTD1(scan: result, debug: self.debug)
             if  mrz.isValid() < self.accuracy {
                 mrz = MRZTD3(scan: result, debug: self.debug)
             }
-        } else if mrzType == MRZType.TD1 {
+        } else if mrzType == MRZType.td1 {
             mrz = MRZTD1(scan: result, debug: self.debug)
         } else {
             mrz = MRZTD3(scan: result, debug: self.debug)
