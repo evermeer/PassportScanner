@@ -98,14 +98,13 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         crop.locationOfCropInPixels = Position(350, 60, nil)
         crop.overriddenOutputRotation = .rotateClockwise
         
-        if(usePostProcessingFilters){
+        if(usePostProcessingFilters) {
             exposureFilter.exposure = CGFloat(self.defaultExposure)
             highlightShadowFilter.highlights = 0.8
             saturationFilter.saturation = 0.6
             contrastFilter.contrast = 2.0
             adaptiveThresholdFilter.blurRadiusInPixels = 8.0
-            
-        }else{
+        } else {
             // Filter settings
             exposure = ExposureAdjustment()
             exposure.exposure = 0.7 // -10 - 10
@@ -143,7 +142,6 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
                 if self.exposure.exposure < -2 {
                     self.exposure.exposure = self.defaultExposure
                 }
-                
             }
         }
         
@@ -178,29 +176,27 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             camera = try Camera(sessionPreset: AVCaptureSession.Preset.hd1920x1080)
             camera.location = PhysicalCameraLocation.backFacing
             
-            if(usePostProcessingFilters){
+            if usePostProcessingFilters {
                 // Apply only the cropping
                 camera --> renderView
                 camera --> crop
-            }else{
+            } else {
                 // Chain the filter to the render view
                 camera --> exposure  --> highlightShadow  --> saturation --> contrast --> adaptiveThreshold --> renderView
                 // Use the same chained filters and forward these to 2 other filters
                 adaptiveThreshold --> crop --> averageColor
             }
-            
         } catch {
             fatalError("Could not initialize rendering pipeline: \(error)")
         }
     }
     
     func evaluateExposure(image: UIImage){
-        if(!self.enableAdaptativeExposure || (self.averageColorFilter != nil)){
+        if !self.enableAdaptativeExposure || self.averageColorFilter != nil {
             return
         }
         
         DispatchQueue.global(qos: .background).async {
-            
             self.averageColorFilter = GPUImageAverageColor()
             self.averageColorFilter.colorAverageProcessingFinishedBlock = {red, green, blue, alpha, time in
                 let lighting = blue + green + red
@@ -223,36 +219,24 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
                 
                 self.averageColorFilter = nil
             }
-            
             self.averageColorFilter.image(byFilteringImage: image)
-            
         }
-        
-        
     }
     
     open func preprocessedImage(for tesseract: MGTesseract!, sourceImage: UIImage!) -> UIImage! {
-        if(usePostProcessingFilters){
-            
-            var filterImage: UIImage = sourceImage
-            
-            exposureFilter.exposure = self.lastExposure
-            
-            filterImage = exposureFilter.image(byFilteringImage: filterImage)
-            filterImage = highlightShadowFilter.image(byFilteringImage: filterImage)
-            filterImage = saturationFilter.image(byFilteringImage: filterImage)
-            filterImage = contrastFilter.image(byFilteringImage: filterImage)
-            filterImage = adaptiveThresholdFilter.image(byFilteringImage: filterImage)
-            
-            self.evaluateExposure(image: filterImage)
-            
-            return filterImage
-            
-        }
-        
         // sourceImage is the same image you sent to Tesseract above.
         // Processing is already done in dynamic filters
-        return sourceImage
+        if !usePostProcessingFilters { return sourceImage }
+
+        var filterImage: UIImage = sourceImage
+        exposureFilter.exposure = self.lastExposure
+        filterImage = exposureFilter.image(byFilteringImage: filterImage)
+        filterImage = highlightShadowFilter.image(byFilteringImage: filterImage)
+        filterImage = saturationFilter.image(byFilteringImage: filterImage)
+        filterImage = contrastFilter.image(byFilteringImage: filterImage)
+        filterImage = adaptiveThresholdFilter.image(byFilteringImage: filterImage)
+        self.evaluateExposure(image: filterImage)
+        return filterImage
     }
     
     
@@ -264,8 +248,11 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     @IBAction open func StartScan(sender: AnyObject) {
         self.view.backgroundColor = UIColor.black
         camera.startCapture()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        scanning()
+    }
+
+    private func scanning() {
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
             //print("Start OCR")
             self.pictureOutput = PictureOutput()
             self.pictureOutput.encodedImageFormat = .png
@@ -273,7 +260,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             self.pictureOutput.imageAvailableCallback = { sourceImage in
                 if self.processImage(sourceImage: sourceImage) { return }
                 // Not successful, start another scan
-                self.StartScan(sender: self)
+                self.scanning()
             }
             self.crop --> self.pictureOutput
         }
@@ -316,14 +303,14 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         // Create the MRZ object and validate if it's OK
         var mrz: MRZParser
         
-        if(mrzType == MRZType.Auto){
+        if mrzType == MRZType.Auto {
             mrz = MRZTD1(scan: result, debug: self.debug)
             if  mrz.isValid() < self.accuracy {
                 mrz = MRZTD3(scan: result, debug: self.debug)
             }
-        }else if(mrzType == MRZType.TD1){
+        } else if mrzType == MRZType.TD1 {
             mrz = MRZTD1(scan: result, debug: self.debug)
-        }else{
+        } else {
             mrz = MRZTD3(scan: result, debug: self.debug)
         }
         
@@ -331,7 +318,9 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             print("Scan quality insufficient : \(mrz.isValid)")
         } else {
             self.camera.stopCapture()
-            self.successfulScan(mrz: mrz)
+            DispatchQueue.main.async {
+                self.successfulScan(mrz: mrz)
+            }
             return true
         }
         return false
@@ -354,7 +343,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         result = self.tesseract.recognizedText
         //tesseract = nil
         MGTesseract.clearCache()
-        print("Scan result : \(result)")
+        print("Scan result : \(result ?? "")")
         return result ?? ""
     }
     
