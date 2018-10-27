@@ -315,7 +315,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         }
         
         if  mrz.isValid() < self.accuracy {
-            print("Scan quality insufficient : \(mrz.isValid)")
+            print("Scan quality insufficient : \(mrz.isValid())")
         } else {
             self.camera.stopCapture()
             DispatchQueue.main.async {

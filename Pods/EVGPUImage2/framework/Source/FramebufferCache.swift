@@ -31,7 +31,7 @@ public class FramebufferCache {
             framebuffer.orientation = orientation
         } else {
             do {
-                debugPrint("Generating new framebuffer at size: \(size)")
+                //debugPrint("Generating new framebuffer at size: \(size)")
 
                 framebuffer = try Framebuffer(context:context, orientation:orientation, size:size, textureOnly:textureOnly, minFilter:minFilter, magFilter:magFilter, wrapS:wrapS, wrapT:wrapT, internalFormat:internalFormat, format:format, type:type, stencil:stencil)
                 framebuffer.cache = self
