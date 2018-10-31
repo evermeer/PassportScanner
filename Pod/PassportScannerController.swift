@@ -14,26 +14,31 @@ import UIImage_Resize
 import AVFoundation
 
 // based to https://www.icao.int/publications/pages/publication.aspx?docnum=9303
-public enum MRZType {
+@objc
+public enum MRZType: Int {
     case Auto
     case TD1 // 3 lines - 30 chars per line
     //case TD2 // to be implemented
     case TD3 // 2 lines - 44 chars per line
 }
 
+@objc(PassportScannerController)
 open class PassportScannerController: UIViewController, MGTesseractDelegate {
     
     /// Set debug to true if you want to see what's happening
-    public var debug = false
+    @objc public var debug = false
     
     /// Set accuracy that is required for the scan. 1 = all checksums should be ok
-    public var accuracy: Float = 1
+    @objc public var accuracy: Float = 1
     
     /// Apply filters in post processing, instead of in camera preview
-    public var usePostProcessingFilters = false
+    @objc public var usePostProcessingFilters = false
     
     // The parsing to be applied
-    public var mrzType: MRZType = MRZType.Auto
+    @objc public var mrzType: MRZType = MRZType.Auto
+    
+    @objc public var scannerDidCompleteWith:((MRZParser?) -> ())?
+
     
     /// When you create your own view, then make sure you have a GPUImageView that is linked to this
     @IBOutlet var renderView: RenderView!
@@ -256,12 +261,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     }
     
     
-    /**
-     call this from your code to start a scan immediately or hook it to a button.
-     
-     :param: sender The sender of this event
-     */
-    @IBAction open func StartScan(sender: AnyObject) {
+    @objc public func startScan() {
         self.view.backgroundColor = UIColor.black
         camera.startCapture()
         
@@ -278,6 +278,22 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             self.crop --> self.pictureOutput
         }
     }
+
+    @objc public func stopScan() {
+        self.view.backgroundColor = UIColor.white
+        camera.stopCapture()
+        abortScan()
+    }
+    
+    
+    /**
+     call this from your code to start a scan immediately or hook it to a button.
+     
+     :param: sender The sender of this event
+     */
+    @IBAction open func StartScan(sender: AnyObject) {
+        self.startScan()
+    }
     
     /**
      call this from your code to stop a scan or hook it to a button
@@ -285,9 +301,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
      :param: sender the sender of this event
      */
     @IBAction open func StopScan(sender: AnyObject) {
-        self.view.backgroundColor = UIColor.white
-        camera.stopCapture()
-        abortScan()
+        self.stopScan()
     }
     
     
@@ -364,14 +378,22 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
      :param: mrz The MRZ result
      */
     open func successfulScan(mrz: MRZParser) {
-        assertionFailure("You should overwrite this function to handle the scan results")
+        if(self.scannerDidCompleteWith != nil){
+            self.scannerDidCompleteWith!(mrz)
+        }else{
+            assertionFailure("You should overwrite this function to handle the scan results")
+        }
     }
     
     /**
      Override this function in your own class for processing a cancel
      */
     open func abortScan() {
-        assertionFailure("You should overwrite this function to handle an abort")
+        if(self.scannerDidCompleteWith != nil){
+            self.scannerDidCompleteWith!(nil)
+        }else{
+            assertionFailure("You should overwrite this function to handle an abort")
+        }
     }
 }
 
