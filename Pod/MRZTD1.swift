@@ -8,6 +8,7 @@
 
 import Foundation
 
+@objc(MRZTD1)
 open class MRZTD1: MRZParser {
     // check data with https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
     
@@ -20,37 +21,37 @@ open class MRZTD1: MRZParser {
     private var lineLen: Int = 30;
     
     /// The document type from the 1st line of the MRZ. (start 1, len 1)
-    public var documentType: String = ""
+    @objc public var documentType: String = ""
     /// The document sub type from the 1st line of the MRZ. (start 2, len 1)
-    public var documentSubType: String = ""
+    @objc public var documentSubType: String = ""
     /// The country code from the 1st line of the MRZ (start 3, len 3)
-    public var countryCode: String = ""
+    @objc public var countryCode: String = ""
     /// The passport number from the 1nd line of the MRZ. (start 6, len 9)
-    public var passportNumber: String = ""
+    @objc public var passportNumber: String = ""
     /// Check digit start 15, len 1 - validating the passportNumber
     private var passportNumberIsValid = false
     
     
     /// The date of birth from the 2nd line of the MRZ (start 1, len 6)
-    public var dateOfBirth: Date?
+    @objc public var dateOfBirth: Date?
     /// start 7, len 1 - validating the dateOfBirth
     private var dateOfBirthIsValid = false
     /// The sex from the 2nd line of the MRZ. (start 8, len 1)
-    public var sex: String = ""
+    @objc public var sex: String = ""
     /// The expiration date from the 2nd line of the MRZ. (start 9, len 6)
-    public var expirationDate: Date?
+    @objc public var expirationDate: Date?
     /// start 15, len 1 - validating the expirationDate
     private var expirationDateIsValid = false
     /// The nationality from the 2nd line of the MRZ. (start 16, len 3)
-    public var nationality: String = ""
+    @objc public var nationality: String = ""
     // start 30, len 1 - validating line 1 and 2
     private var dataIsValid = false
     
     
     /// The last name from the 1st line of the MRZ (start 1, len 30, until first <<)
-    public var lastName: String = ""
+    @objc public var lastName: String = ""
     /// The firstname from the 1st line of the MRZ (start first << len 30)
-    public var firstName: String = ""
+    @objc public var firstName: String = ""
 
     
     
@@ -59,7 +60,7 @@ open class MRZTD1: MRZParser {
      
      :returns: Return all fields in a dictionary
      */
-    open func data() -> Dictionary<String, Any> {
+    @objc public override func data() -> Dictionary<String, Any> {
         return ["documentType"    : documentType,
                 "documentSubType" : documentSubType,
                 "countryCode"     : countryCode,
@@ -77,7 +78,7 @@ open class MRZTD1: MRZParser {
      
      :returns: a string with all fields plus field name (each field on a new line)
      */
-    open override var description: String {
+    @objc open override var description: String {
         get {
             return self.data().map {"\($0) = \($1)"}.reduce("") {"\($0)\n\($1)"}
         }
@@ -91,7 +92,7 @@ open class MRZTD1: MRZParser {
      
      :returns: Instance of MRZ
      */
-    public override init(scan: String, debug: Bool = false) {
+    @objc public override init(scan: String, debug: Bool = false) {
         super.init(scan: scan, debug: debug)
         _debug = debug
         var lines: [String] = scan.characters.split(separator: "\n").map({String($0)})
@@ -129,7 +130,7 @@ open class MRZTD1: MRZParser {
         }
     }
     
-    override func isValid() -> Float {
+    @objc override func isValid() -> Float {
         return _isValid
         
     }

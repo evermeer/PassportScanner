@@ -8,16 +8,19 @@
 
 import Foundation
 
+@objc(MRZParser)
 open class MRZParser : NSObject{
     
-    public init(scan: String, debug: Bool = false) {
+    @objc public init(scan: String, debug: Bool = false) {
         super.init()
     }
     
     /// Was the last scan valid. A value of 1 is for when all validations are OK
-    func isValid() -> Float {return 0}
+    @objc func isValid() -> Float {return 0}
     
-    
+    // A dictionary with mrz parsed fields
+    @objc public func data() -> Dictionary<String, Any> {return Dictionary.init()}
+
     
     
     /**
