@@ -21,10 +21,11 @@ class MyScanViewController: PassportScannerController {
     
     
     override func viewDidLoad() {
-        //These variables must be setted before the viewDidAppear
-        self.usePostProcessingFilters = true
-        self.mrzType = MRZType.Auto
         super.viewDidLoad();
+        self.debug = true // So that we can see what's going on (scan text and quality indicator)
+        self.accuracy = 1  // 1 = all checksums should pass (is the default so we could skip this line)
+        self.mrzType = .auto // Performs a little better when set to td1 or td3
+        self.showPostProcessingFilters = true // Set this to true to to give you a good indication of the scan quality
     }
     
     
@@ -33,8 +34,6 @@ class MyScanViewController: PassportScannerController {
     */
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.debug = true // So that we can see what's going on (scan text and quality indicator)
-        self.accuracy = 1  // 1 = all checksums should pass (is the default so we could skip this line)
         self.StartScan(sender: self)
     }
     

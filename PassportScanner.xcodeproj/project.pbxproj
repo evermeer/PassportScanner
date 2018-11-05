@@ -41,6 +41,7 @@
 		7F1B4CC91B9ED5810090F05E /* PassportScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassportScannerController.swift; sourceTree = "<group>"; };
 		7F1B4CCC1B9EDC5E0090F05E /* PassportScanner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PassportScanner-Bridging-Header.h"; sourceTree = "<group>"; };
 		7F30D6111D4E0E7A00A3CBAA /* EVGPUImage2.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = EVGPUImage2.podspec; sourceTree = "<group>"; };
+		7F84E6E121838D1B0081A8F1 /* DE_identity.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = DE_identity.jpg; sourceTree = "<group>"; };
 		7FDBE3611B9EE5B1004E7945 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		7FDBE3631B9EE777004E7945 /* tessdata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = tessdata; sourceTree = "<group>"; };
 		7FDBE3651B9F02D2004E7945 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -86,6 +87,7 @@
 				7FDBE3651B9F02D2004E7945 /* README.md */,
 				7FDBE3681B9F0328004E7945 /* LICENSE */,
 				7F0601A11BA029DE00091999 /* ezgif.gif */,
+				7F84E6E121838D1B0081A8F1 /* DE_identity.jpg */,
 				7F07913A1E1E75FA00A015A7 /* NLpaspoort.jpg */,
 				7FDBE3631B9EE777004E7945 /* tessdata */,
 				7F1B4CC71B9ED5810090F05E /* Pod */,
@@ -182,7 +184,7 @@
 				TargetAttributes = {
 					7F132F2D1B9ED2C5001A542A = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = Q6FGJYQPM4;
+						DevelopmentTeam = 6Z7QY98HTS;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -245,7 +247,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/EVGPUImage2/EVGPUImage2.framework",
 				"${BUILT_PRODUCTS_DIR}/GPUImage/GPUImage.framework",
 				"${BUILT_PRODUCTS_DIR}/TesseractOCRSDKiOS/TesseractOCRSDKiOS.framework",
@@ -260,7 +262,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PassportScanner/Pods-PassportScanner-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -400,7 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Q6FGJYQPM4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -423,7 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = Q6FGJYQPM4;
+				DEVELOPMENT_TEAM = 6Z7QY98HTS;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PassportScanner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
