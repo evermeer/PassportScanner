@@ -11,8 +11,12 @@ import Foundation
 @objc(MRZParser)
 open class MRZParser : NSObject{
     
+    @objc public var parsedMRZ: String = ""
+
+    
     @objc public init(scan: String, debug: Bool = false) {
         super.init()
+        parsedMRZ = scan
     }
     
     /// Was the last scan valid. A value of 1 is for when all validations are OK
