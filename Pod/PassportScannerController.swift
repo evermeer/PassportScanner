@@ -34,6 +34,9 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     /// If false then apply filters in post processing, otherwise instead of in camera preview
     @objc public var showPostProcessingFilters = true
     
+    //last parsed image
+    @objc public var parsedImage: UIImage?
+    
     // The parsing to be applied
     @objc public var mrzType: MRZType = MRZType.auto
     
@@ -180,6 +183,11 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             camera = try Camera(sessionPreset: AVCaptureSession.Preset.hd1920x1080)
             camera.location = PhysicalCameraLocation.backFacing
             
+            if renderView==nil {
+                renderView = RenderView.init(frame: self.view.bounds)
+                self.view.addSubview(renderView)
+            }
+            
             if !showPostProcessingFilters {
                 // Apply only the cropping
                 camera --> renderView
@@ -290,7 +298,14 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         self.stopScan()
     }
     
-    
+    open func imageFromView(myView: UIView) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(myView.bounds.size, myView.isOpaque, 0.0)
+        myView.drawHierarchy(in: myView.bounds, afterScreenUpdates: true)
+        let snapshotImageFromMyView = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        //print(snapshotImageFromMyView)
+        return snapshotImageFromMyView!
+    }
     
     /**
      Processing the image
@@ -330,7 +345,15 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         if  mrz.isValid() < self.accuracy {
             print("Scan quality insufficient : \(mrz.isValid())")
         } else {
-            self.camera.stopCapture()
+            DispatchQueue.main.async {
+                let subviews = self.renderView.subviews
+                for view in subviews {
+                    view.removeFromSuperview()
+                }
+                self.parsedImage = self.imageFromView(myView: self.renderView)
+                self.camera.stopCapture()
+            }
+            
             DispatchQueue.main.async {
                 self.successfulScan(mrz: mrz)
             }
