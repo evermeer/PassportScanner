@@ -164,7 +164,7 @@ open class MRZTD3: MRZParser {
         debugLog("nationality : \(nationality)")
         let birth = line2.subString(13, to: 18).toNumber()
         let birthValidation = line2.subString(19, to: 19).toNumber()
-        dateOfBirth = MRZTD3.dateFromString(birth)
+        dateOfBirth = MRZTD3.dateFromString(birth, inThePast: true)
         debugLog("date of birth : \(dateOfBirth)")
         sex = line2.subString(20, to: 20)
         debugLog("sex : \(sex)")

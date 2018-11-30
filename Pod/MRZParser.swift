@@ -32,16 +32,19 @@ open class MRZParser : NSObject{
      
      :param: value The string value that needs to be converted to a date
      
-     :returns: Returns the date value for the string
+     :returns: Returns the date value for the string and force it to be in the past
      */
-    class func dateFromString(_ value: String) -> Date? {
+    class func dateFromString(_ value: String, inThePast: Bool = false) -> Date? {
         var date: Date?
         let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "YYMMdd"
         dateStringFormatter.locale = Locale(identifier: "en_US_POSIX")
         let d = dateStringFormatter.date(from: value)
         if d != nil {
-            date = Date(timeInterval:0, since:d!)
+            date = Date(timeInterval: 0, since: d!)
+        }
+        if let dateU = date, dateU > Date(), inThePast {
+            date = Calendar.current.date(byAdding: .year, value: -100, to: dateU)
         }
         return date
     }

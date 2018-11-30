@@ -179,7 +179,7 @@ open class MRZTD1: MRZParser {
         // Line 2 parsing
         let birth = line2.subString(0, to: 5).toNumber()
         let birthValidation = line2.subString(6, to: 6).toNumber()
-        dateOfBirth = MRZTD1.dateFromString(birth)
+        dateOfBirth = MRZTD1.dateFromString(birth, inThePast: false)
         debugLog("date of birth : \(dateOfBirth)")
         sex = line2.subString(7, to: 7)
         debugLog("sex : \(sex)")
