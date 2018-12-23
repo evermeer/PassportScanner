@@ -39,6 +39,7 @@ open class MRZParser : NSObject{
         let dateStringFormatter = DateFormatter()
         dateStringFormatter.dateFormat = "YYMMdd"
         dateStringFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateStringFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
         let d = dateStringFormatter.date(from: value)
         if d != nil {
             date = Date(timeInterval: 0, since: d!)

@@ -265,9 +265,11 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             self.pictureOutput.encodedImageFormat = .png
             self.pictureOutput.onlyCaptureNextFrame = true
             self.pictureOutput.imageAvailableCallback = { sourceImage in
-                if self.processImage(sourceImage: sourceImage) { return }
-                // Not successful, start another scan
-                self.scanning()
+                DispatchQueue.global().async() {
+                    if self.processImage(sourceImage: sourceImage) { return }
+                    // Not successful, start another scan
+                    self.scanning()
+                }
             }
             self.crop --> self.pictureOutput
         }
