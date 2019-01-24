@@ -40,7 +40,13 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     // The parsing to be applied
     @objc public var mrzType: MRZType = MRZType.auto
     
+    @objc public var tesseractTrainedDataAbsolutePath: String?
+    
     @objc public var scannerDidCompleteWith:((MRZParser?) -> ())?
+    
+    var ocrParsingRect: CGRect = CGRect(x: 350, y: 60, width: 350, height: 1800)
+    
+    @objc public var setupCompleted = false
     
     /// When you create your own view, then make sure you have a GPUImageView that is linked to this
     @IBOutlet var renderView: RenderView!
@@ -98,11 +104,30 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
      */
     open override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if !self.setupCompleted {
+            self.setup()
+        }
+    }
+    
+    @objc public func setup() {
+        if self.setupCompleted {
+            return
+        }
+        self.setupCompleted = true
+        
         self.view.backgroundColor = UIColor.white
         
+        if self.tesseractTrainedDataAbsolutePath != nil {
+            tesseract = MGTesseract(language: "eng", configDictionary: nil, configFileNames: nil, absoluteDataPath: self.tesseractTrainedDataAbsolutePath, engineMode: MGOCREngineMode.tesseractOnly)
+        }else{
+            tesseract = MGTesseract(language: "eng")
+        }
+        
         // Specify the crop region that will be used for the OCR
-        crop.cropSizeInPixels = Size(width: 350, height: 1800)
-        crop.locationOfCropInPixels = Position(350, 60, nil)
+        
+        crop.cropSizeInPixels = Size(width: Float(ocrParsingRect.size.width), height: Float(ocrParsingRect.size.height))
+        crop.locationOfCropInPixels = Position(Float(ocrParsingRect.origin.x), Float(ocrParsingRect.origin.y), nil)
         crop.overriddenOutputRotation = .rotateClockwise
         
         if !showPostProcessingFilters {
@@ -161,7 +186,8 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         // tesseract OCR settings
         self.tesseract.setVariableValue("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ<", forKey: "tessedit_char_whitelist")
         self.tesseract.delegate = self
-        self.tesseract.rect = CGRect(x: 0, y: 0, width: 900, height: 175)
+        
+        self.tesseract.rect = CGRect(x: 0, y: 0, width: ocrParsingRect.size.height / 2, height: ocrParsingRect.size.width / 2)
         
         // see http://www.sk-spell.sk.cx/tesseract-ocr-en-variables
         self.tesseract.setVariableValue("1", forKey: "tessedit_serial_unlv")
@@ -178,6 +204,12 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if camera == nil {
+            self.initCamera()
+        }
+    }
+    
+    func initCamera(){
         do {
             // Initialize the camera
             camera = try Camera(sessionPreset: AVCaptureSession.Preset.hd1920x1080)
@@ -186,6 +218,8 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             if renderView==nil {
                 renderView = RenderView.init(frame: self.view.bounds)
                 self.view.addSubview(renderView)
+            }else{
+                renderView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height)
             }
             
             if !showPostProcessingFilters {
@@ -198,6 +232,18 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
                 // Use the same chained filters and forward these to 2 other filters
                 adaptiveThreshold --> crop --> averageColor
             }
+            
+            if debug{
+                let debugViewFrame : CGRect = self.getOcrParsingRectDebugView()
+                
+                let scanAreaDebug = UIView (frame: CGRect(x:debugViewFrame.origin.x,
+                                                          y:debugViewFrame.origin.y,
+                                                          width:debugViewFrame.size.width,
+                                                          height:debugViewFrame.size.height))
+                scanAreaDebug.backgroundColor = UIColor.red.withAlphaComponent(0.5)
+                renderView.addSubview(scanAreaDebug)
+            }
+            
         } catch {
             fatalError("Could not initialize rendering pipeline: \(error)")
         }
@@ -239,7 +285,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         // sourceImage is the same image you sent to Tesseract above.
         // Processing is already done in dynamic filters
         if showPostProcessingFilters { return sourceImage }
-
+        
         var filterImage: UIImage = sourceImage
         exposureFilter.exposure = self.lastExposure
         filterImage = exposureFilter.image(byFilteringImage: filterImage)
@@ -252,12 +298,55 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     }
     
     
+    /**
+     The frame of the ocr parsing. It is in locical pixel, relative to the vc's view.
+     The frame is used to show the area that will be scanned (if debug = true)
+     The real scan area is converted to a coordinate relative to the final image (fullhd frame)
+     */
+    @objc public func setOcrParsingRect(frame: CGRect){
+        
+        let videoFrameSize : CGSize = CGSize(width: 1080, height: 1920)
+        
+        let scale : CGFloat = UIScreen.main.scale
+        
+        let x : CGFloat = (frame.origin.x * scale * videoFrameSize.width)  / (self.view.frame.size.width  * scale)
+        let y : CGFloat = (frame.origin.y * scale * videoFrameSize.height) / (self.view.frame.size.height * scale)
+        
+        let w : CGFloat = (frame.size.width  * scale * videoFrameSize.width)  / (self.view.frame.size.width  * scale)
+        let h : CGFloat = (frame.size.height * scale * videoFrameSize.height) / (self.view.frame.size.height * scale)
+        
+        self.ocrParsingRect = CGRect(x: x, y: y, width: w, height: h)
+        
+        crop.cropSizeInPixels = Size(width: Float(ocrParsingRect.size.width), height: Float(ocrParsingRect.size.height))
+        crop.locationOfCropInPixels = Position(Float(ocrParsingRect.origin.x), Float(ocrParsingRect.origin.y), nil)
+        self.tesseract.rect = CGRect(x: 0, y: 0, width: ocrParsingRect.size.height / 2, height: ocrParsingRect.size.width / 2)
+        
+    }
+    
+    func getOcrParsingRectDebugView() -> CGRect{
+        let videoFrameSize : CGSize = CGSize(width: 1080, height: 1920)
+        
+        let h : CGFloat = (self.ocrParsingRect.size.height / videoFrameSize.height) * renderView.frame.size.height
+        let w : CGFloat = (self.ocrParsingRect.size.width / videoFrameSize.width) * renderView.frame.size.width
+        let x : CGFloat = ((self.ocrParsingRect.origin.x / videoFrameSize.width) * renderView.frame.size.width)
+        let y : CGFloat = ((self.ocrParsingRect.origin.y / videoFrameSize.height) * renderView.frame.size.height)
+        
+        return CGRect(x: x, y: y, width: w, height: h)
+    }
+    
+    
     @objc public func startScan() {
+        self.setup()
+        
+        if camera == nil {
+            self.initCamera()
+        }
+        
         self.view.backgroundColor = UIColor.black
         camera.startCapture()
         scanning()
     }
-
+    
     private func scanning() {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
             //print("Start OCR")
@@ -274,7 +363,7 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
             self.crop --> self.pictureOutput
         }
     }
-
+    
     @objc public func stopScan() {
         self.view.backgroundColor = UIColor.white
         camera.stopCapture()
@@ -315,8 +404,9 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
      - parameter sourceImage: The image that needs to be processed
      */
     open func processImage(sourceImage: UIImage) -> Bool {
+        
         // resize image. Smaller images are faster to process. When letters are too big the scan quality also goes down.
-        let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: 350 * 0.5, height: 1800 * 0.5), scaleIfSmaller: true)
+        let croppedImage: UIImage = sourceImage.resizedImageToFit(in: CGSize(width: ocrParsingRect.size.width * 0.5, height: ocrParsingRect.size.height * 0.5), scaleIfSmaller: true)
         
         // rotate image. tesseract needs the correct orientation.
         // let image: UIImage = croppedImage.rotate(by: -90)!
@@ -346,6 +436,12 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         
         if  mrz.isValid() < self.accuracy {
             print("Scan quality insufficient : \(mrz.isValid())")
+            
+            DispatchQueue.main.async {
+                
+                self.parsedImage = self.imageFromView(myView: self.renderView)
+                
+            }
         } else {
             DispatchQueue.main.async {
                 let subviews = self.renderView.subviews
@@ -435,4 +531,9 @@ extension UIImage {
         }
     }
 }
+
+
+
+
+
 
