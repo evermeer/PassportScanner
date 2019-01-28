@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,8 +21,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GvR-8Q-iLE">
-                                <rect key="frame" x="216" y="52" width="169" height="65"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSc-Kv-jT5">
+                                <rect key="frame" x="36" y="130" width="303" height="454"/>
+                                <string key="text">IMPORTANT NOTICE: SCANNING IDENTITY DOCUMENTS IS IN MOST CASES RESTRICTED BY LAW. OBSERVE THE APPLICABLE LAWS USING THIS TOOL. THE COPYRIGHT HOLDER IS NOT IN ANY WAY LIABLE FOR UNLAWFUL USAGE OF THIS TOOL.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GvR-8Q-iLE">
+                                <rect key="frame" x="103" y="52" width="169" height="65"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BSq-F7-poS" userLabel="SCAN">
                                         <rect key="frame" x="4" y="7" width="161" height="51"/>
@@ -50,22 +56,16 @@
                                     <constraint firstAttribute="width" constant="169" id="sq0-x5-mFz"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSc-Kv-jT5">
-                                <rect key="frame" x="36" y="130" width="528" height="454"/>
-                                <string key="text">IMPORTANT NOTICE: SCANNING IDENTITY DOCUMENTS IS IN MOST CASES RESTRICTED BY LAW. OBSERVE THE APPLICABLE LAWS USING THIS TOOL. THE COPYRIGHT HOLDER IS NOT IN ANY WAY LIABLE FOR UNLAWFUL USAGE OF THIS TOOL.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GvR-8Q-iLE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Xlb-7h-9XO"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="cSc-Kv-jT5" secondAttribute="bottom" constant="83" id="5VR-hc-VNf"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="top" secondItem="GvR-8Q-iLE" secondAttribute="bottom" constant="13" id="7jV-5x-i6D"/>
+                            <constraint firstItem="GvR-8Q-iLE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="B18-te-HBk"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="centerX" secondItem="GvR-8Q-iLE" secondAttribute="centerX" id="En1-bp-C2b"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="e8U-wJ-4YC"/>
                             <constraint firstItem="GvR-8Q-iLE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="32" id="fMo-xS-3Qd"/>
-                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="gzR-a9-FU2"/>
-                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="130" id="mA9-oA-FcV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cSc-Kv-jT5" secondAttribute="trailing" constant="16" id="sgm-vp-Nj3"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="cSc-Kv-jT5" secondAttribute="bottom" constant="16" id="yv9-0v-3qN"/>
+                            <constraint firstItem="cSc-Kv-jT5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="hte-VC-jTM"/>
                         </constraints>
                     </view>
                     <connections>
@@ -74,7 +74,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-508" y="-1127"/>
+            <point key="canvasLocation" x="-508" y="-1127.5862068965519"/>
         </scene>
         <!--My Scan View Controller-->
         <scene sceneID="LPJ-C2-hG9">

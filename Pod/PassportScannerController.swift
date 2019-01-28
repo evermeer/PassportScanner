@@ -39,13 +39,17 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
     
     // The parsing to be applied
     @objc public var mrzType: MRZType = MRZType.auto
-    
+
+    // For if you want the data on a different location than standard
     @objc public var tesseractTrainedDataAbsolutePath: String?
-    
+
+    // Can be sat as a callback function
     @objc public var scannerDidCompleteWith:((MRZParser?) -> ())?
-    
+
+    // The size and location of the scan area so that you could create your own custom interface.
     var ocrParsingRect: CGRect = CGRect(x: 350, y: 60, width: 350, height: 1800)
-    
+
+    // We only wan to do the setup once.
     @objc public var setupCompleted = false
     
     /// When you create your own view, then make sure you have a GPUImageView that is linked to this
@@ -179,8 +183,6 @@ open class PassportScannerController: UIViewController, MGTesseractDelegate {
         
         // download trained data to tessdata folder for language from:
         // https://code.google.com/p/tesseract-ocr/downloads/list
-        // ocr trained data is available in:    ;)
-        // http://getandroidapp.org/applications/business/79952-nfc-passport-reader-2-0-8.html
         // optimisations created based on https://github.com/gali8/Tesseract-OCR-iOS/wiki/Tips-for-Improving-OCR-Results
         
         // tesseract OCR settings
