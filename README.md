@@ -1,4 +1,6 @@
-![icon](https://raw.githubusercontent.com/evermeer/PassportScanner/master/PassportScanner/Images.xcassets/AppIcon.appiconset/Icon-60%403x.png)
+<p align="center">
+  <img height="180" src="https://raw.githubusercontent.com/evermeer/PassportScanner/master/PassportScanner/Images.xcassets/AppIcon.appiconset/Icon-60%403x.png" />
+</p>
 
 PassportScanner
 =============
