@@ -1,3 +1,7 @@
+<p align="center">
+  <img height="180" src="https://raw.githubusercontent.com/evermeer/PassportScanner/master/PassportScanner/Images.xcassets/AppIcon.appiconset/Icon-60%403x.png" />
+</p>
+
 PassportScanner
 =============
 Works with 2 and 3 line identity documents.
