@@ -94,11 +94,11 @@ open class MRZTD3: MRZParser {
     @objc public override init(scan: String, debug: Bool = false) {
         super.init(scan: scan, debug: debug)
         _debug = debug
-        let lines: [String] = scan.characters.split(separator: "\n").map({String($0)})
+        let lines: [String] = scan.split(separator: "\n").map({String($0)})
         var longLines: [String] = []
         for line in lines {
             let cleaned = line.replace(target: " ", with: "")
-            if cleaned.characters.count > 43 {
+            if cleaned.count > 43 {
                 longLines.append(line)
             }
         }
@@ -150,7 +150,7 @@ open class MRZTD3: MRZParser {
         countryCode = line1.subString(2, to: 4).replace(target: "<", with: " ")
         debugLog("Country code : \(countryCode)")
         let name = line1.subString(5, to: 43).replace(target: "0", with: "O")
-        var nameArray = name.components(separatedBy: "<<")
+        let nameArray = name.components(separatedBy: "<<")
         lastName = nameArray[0].replace(target: "<", with: " ")
         debugLog("Last name : \(lastName)")
         firstName = nameArray.count > 1 ? nameArray[1].replace(target: "<", with: " ") : ""
@@ -165,7 +165,7 @@ open class MRZTD3: MRZParser {
         let birth = line2.subString(13, to: 18).toNumber()
         let birthValidation = line2.subString(19, to: 19).toNumber()
         dateOfBirth = MRZTD3.dateFromString(birth, inThePast: true)
-        debugLog("date of birth : \(dateOfBirth)")
+        debugLog("date of birth : \(dateOfBirth.debugDescription)")
         sex = line2.subString(20, to: 20)
         debugLog("sex : \(sex)")
         let expiration = line2.subString(21, to: 26).toNumber()
@@ -214,18 +214,18 @@ open class MRZTD3: MRZParser {
      :returns: Returns the cleaned up text
      */
     fileprivate class func cleanup(line: String) -> String {
-        var t = line.components(separatedBy: " ")
+        let t = line.components(separatedBy: " ")
         if t.count > 1 {
             // are there extra characters added
             for p in t {
-                if p.characters.count == 44 {
+                if p.count == 44 {
                     return p
                 }
             }
             // was there one or more extra space added
-            if "\(t[0])\(t[1])".characters.count == 44 {
+            if "\(t[0])\(t[1])".count == 44 {
                 return "\(t[0])\(t[1])"
-            } else if  "\(t[t.count-2])\(t[t.count-1])".characters.count == 44 {
+            } else if  "\(t[t.count-2])\(t[t.count-1])".count == 44 {
                 return "\(t[t.count-2])\(t[t.count-1])"
             } else {
                 return line.replace(target: " ", with: "")

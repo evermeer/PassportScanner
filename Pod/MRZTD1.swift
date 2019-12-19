@@ -95,7 +95,7 @@ open class MRZTD1: MRZParser {
     @objc public override init(scan: String, debug: Bool = false) {
         super.init(scan: scan, debug: debug)
         _debug = debug
-        var lines: [String] = scan.characters.split(separator: "\n").map({String($0)})
+        var lines: [String] = scan.split(separator: "\n").map({String($0)})
         
         if(lines.count >= 4){
             //probabily i'm capturing also the barcode on top to the MRZ
@@ -108,7 +108,7 @@ open class MRZTD1: MRZParser {
         var longLines: [String] = []
         for line in lines {
             let cleaned = line.replace(target: " ", with: "")
-            if cleaned.characters.count > 30 {
+            if cleaned.count > 30 {
                 return
             }
             longLines.append(line)
@@ -180,12 +180,12 @@ open class MRZTD1: MRZParser {
         let birth = line2.subString(0, to: 5).toNumber()
         let birthValidation = line2.subString(6, to: 6).toNumber()
         dateOfBirth = MRZTD1.dateFromString(birth, inThePast: false)
-        debugLog("date of birth : \(dateOfBirth)")
+        debugLog("date of birth : \(dateOfBirth.debugDescription)")
         sex = line2.subString(7, to: 7)
         debugLog("sex : \(sex)")
         let expiration = line2.subString(8, to: 13).toNumber()
         expirationDate = MRZTD1.dateFromString(expiration)
-        debugLog("date of expiration : \(expirationDate)")
+        debugLog("date of expiration : \(expirationDate.debugDescription)")
         let expirationValidation = line2.subString(14, to: 14).toNumber()
         nationality = line2.subString(15, to: 17).replace(target: "<", with: " ")
         debugLog("nationality : \(nationality)")
@@ -199,7 +199,7 @@ open class MRZTD1: MRZParser {
         let dataValidation = line2.subString(29, to: 29).toNumber()
 
         // Line 3 parsing
-        var nameArray = line3.components(separatedBy: "<<")
+        let nameArray = line3.components(separatedBy: "<<")
         lastName = nameArray[0].replace(target: "<", with: " ")
         debugLog("Last name : \(lastName)")
         firstName = nameArray.count > 1 ? nameArray[1].replace(target: "<", with: " ") : ""
@@ -236,18 +236,18 @@ open class MRZTD1: MRZParser {
      :returns: Returns the cleaned up text
      */
     fileprivate class func cleanup(line: String) -> String {
-        var t = line.components(separatedBy: " ")
+        let t = line.components(separatedBy: " ")
         if t.count > 1 {
             // are there extra characters added
             for p in t {
-                if p.characters.count == 30 {
+                if p.count == 30 {
                     return p
                 }
             }
             // was there one or more extra space added
-            if "\(t[0])\(t[1])".characters.count == 30 {
+            if "\(t[0])\(t[1])".count == 30 {
                 return "\(t[0])\(t[1])"
-            } else if  "\(t[t.count-2])\(t[t.count-1])".characters.count == 30 {
+            } else if  "\(t[t.count-2])\(t[t.count-1])".count == 30 {
                 return "\(t[t.count-2])\(t[t.count-1])"
             } else {
                 return line.replace(target: " ", with: "")
