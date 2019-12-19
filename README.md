@@ -36,7 +36,7 @@ PassportScanner is trying to optimize OCR results by first performing some graph
 
 ## Building the PassportScanner demo
 
-The current version is tested with Xcode 7 and Xcode 7.1 beta 1.
+The current version is tested with Xcode 11.3, Swift 5
 
 1) Clone the repo to a working directory
 
